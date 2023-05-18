@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 1.const : block scope
+        // 할당 후 값 변경 불가능
+        // 선언시 값을 바로 할당 해줘야함
+        
+        // 2.var : function scope
+        // 같은 이름의 변수 중복 선언가능(문제생길 가능성이 큼)
+        // 변수의 선언부가 호이스팅(위로) 됨
+
+        /* 주로 사용할 변수 */
+        // 3.let : block scope
+        // 변수 중복 선언불가
+        // 호이스팅 안됨
+
+        console.log(a);
+        const const1 = "green";
+        var a = 10;
+        let b = 20;
+
+        {
+            let userName = "green";
+            console.log(userName);
+            var number = 30;
+            console.log(number);
+        }
+        function myFun(){
+            var number2 = 10;
+        }
+        // console.log("바깥에서 사용 " + userName);
+        // console.log("바깥에서 사용 " + number2); 
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
