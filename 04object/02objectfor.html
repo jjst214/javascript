@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Student(name, age){
+            this.name = name;
+            this.age = age;
+        }
+
+        let student1 = new Student("민영", 22);
+        for(let a in student1){
+            console.log(student1[a]);
+        }
+        // in 연산자 해당하는 object에 키가 있으면 true 없으면 false 리턴
+        // 키 in 객체
+        console.log("name" in student1);
+
+        let keys = Object.keys(student1);
+        let values = Object.values(student1);
+        let entries = Object.entries(student1);
+        console.log(keys);
+        console.log(values);
+        console.log(entries);
+        
+        
+    </script>
+</body>
+</html>

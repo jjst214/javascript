@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let user = {
+            name: "green",
+            age:30,
+            sayHi: function(){
+                console.log(this.name);
+            }
+        }
+        console.log(user["name"]);
+        console.log(user.age);
+        user.isAdmin = true; //속성추가
+        console.log(user);
+        delete user.age; //속성삭제
+        console.log(user);
+        user.sayHi();
+
+
+        //생성자 함수
+        function User(name, age, phone){
+            this.name = name;
+            this.age = age;
+            this.phone = phone;
+            this.sayHi = function(){
+              console.log("내 이름은 " + this.name);  
+            };
+        }
+        
+        let user1 = new User("철수", 20, "010-1234-1234");
+        let user2 = new User("영희", 30, "010-1234-5678");
+        let user3 = new User("맹구", 24, "010-1212-1212");
+
+        // let user4 = {
+        //     name:"철수",
+        //     age:20,
+        //     phone:"010-2313-1551",
+        //     sayHi: function(){
+        //         console.log("내 이름은 " + this.name);
+        //     }
+        // }
+    </script>
+</body>
+</html>

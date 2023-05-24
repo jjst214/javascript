@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=100, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let salaries = {
+            John:100,
+            Ann:160,
+            Pete:130
+        }
+        
+        let sum = function(){
+            let val = 0;
+            for(let k in salaries){
+                val += salaries[k];
+            }
+            console.log("샐러리 합 : " + val);
+        };
+        sum();
+
+
+        function Accumulator(num){
+            this.num = num;
+            this.read = function(){
+                this.num += Number(prompt("더할 값을 입력하세요"));
+            };
+        }
+        let accumulator = new Accumulator(1);
+        accumulator.read();
+        accumulator.read();
+        alert(accumulator.value);
+    </script>
+</body>
+</html>

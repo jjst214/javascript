@@ -1,0 +1,10 @@
+이벤트
+마우스이벤트
+
+click 클릭 이벤트
+mouseenter 요소에 마우스를 올렸을때
+mouseleave 벗어났을때
+
+scroll 스크롤했을때
+->window.scrollY 스크롤 한 y값 반환
+->window.scrollTo({ top:200, behavior : "smooth"}) 스크롤해줌

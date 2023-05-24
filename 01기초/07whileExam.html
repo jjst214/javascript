@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let num;
+        // do{
+        //     num = prompt("100초과 숫자 입력", "");
+        // }while(num <= 100 && num=="");
+        //입력값이 100이하일때, 입력값이 없을때 무한반복
+        let yyyy = Number(prompt("연도 입력"));
+
+        function year(a){
+            let isyear = "평년";
+            if(a%4 == 0 && a%100 != 0 || a%400 == 0){
+                isyear = "윤년";
+                console.log(isyear);
+            }else{
+                console.log(isyear);
+            }
+        }
+        year(yyyy);
+    </script>
+</body>
+</html>

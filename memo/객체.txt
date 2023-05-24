@@ -1,0 +1,55 @@
+key:value ---> property(속성)라고 지칭
+key = 문자형
+value = 모든 자료형 사용가능
+let obj = {key:value};
+
+01. 객체생성
+
+객체 생성자 문법(객체 선언만 하는방법)
+let user = new Object();
+객체 리터럴 문법(바로 값까지 주는 방법)
+let user = {};
+
+ex) let user = {
+	name: "green",
+	age:30     ;<<안찍어도됨
+}
+
+02.property 접근, 추가, 삭제
+1)값 접근
+user.name --> "green"
+user.age --> 30
+user["name"] --> "green"
+user["age"] --> 30
+
+2)객체에 property 추가
+user.isAdmin = true; --> user객체 안에 isAdmin: true 가 추가된 것
+
+3)property 삭제
+delete user.age;
+
+4)객체와 함께 쓰는 for문
+for in문
+for(let key in user){ //객체
+	console.log(key);  //key값만 출력
+	console.log(user[key]);  //value값만 출력
+}
+for of문(배열전용 반복문)
+for(let key of user1){
+	console.log(user1[key]);
+}
+
+
+자바스크립트에서의 클래스
+1.생성자 함수
+function User(name, age){
+	this = {};	//생략
+	this.name = name;
+	this.age = age;
+	this.sayHi = function(){
+		console.log("나는" + this.name + "이다");
+	};
+	return this;  //생략
+}
+let user1 = new User("green", 30);
+let user2 = new User("blue", 29);

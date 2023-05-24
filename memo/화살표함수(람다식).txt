@@ -1,0 +1,14 @@
+
+let myFun = function(a){
+	return a;
+}
+let myFun = (a) => {
+	return a;
+}
+
+1. function 대신 =>
+2. (a) 매개변수가 하나일때는 ()생략가능
+3. 실행문이 한줄일땐 { } 생략가능
+4. 실행문이 한줄이고 리턴값이라면 리턴도 생략가능
+
+let myFun = a => a; 까지 줄일 수 있다

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table id="table"></table>
+    <script>
+        let userHTML = [];
+        let userList = [
+            {name: "그린", email:"네이버"},
+            {name: "블루", email:"구글"},
+            {name: "핑크", email:"다음"}
+        ];
+
+        for(let user of userList){
+            userHTML.push("<tr>");
+            userHTML.push("<td>" + user.name + " </td>");
+            userHTML.push("<td>" + user.email + " </td>");
+            userHTML.push("</tr>");
+        }
+        document.querySelector("#table").innerHTML = userHTML.join("");
+        
+        
+    </script>
+</body>
+</html>

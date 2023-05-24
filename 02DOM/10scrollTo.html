@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        li{list-style: none;}
+        ul {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+        }
+        ul li{
+            padding-left: 50px;
+            list-style: none;
+            transition: 0.5s;
+        }
+        .on{
+            font-size: 28px;
+        }
+        div div{
+            width: 100%;
+            height: 100vh;
+        }
+        div>div:nth-child(2){
+            background-color: aqua;
+        }
+        div>div:nth-child(3){
+            background-color: red;
+        }
+        div>div:nth-child(4){
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul>
+            <li class="on">menu1</li>
+            <li>menu2</li>
+            <li>menu3</li>
+        </ul>
+        <div>box1</div>
+        <div>box2</div>
+        <div>box3</div>
+    </div>
+    <script>
+        let lis = document.querySelectorAll("li");
+        
+        let wh = window.innerHeight;
+        
+        for(let i=0; i<lis.length; i++){
+            lis[i].addEventListener("click", function(){
+                window.scrollTo({top:i*wh, behavior:"smooth"});
+            });
+        }
+        window.addEventListener("scroll", function(){
+            let scroll = window.scrollY;
+            if(scroll>=0 && scroll<wh){
+                lis[0].classList.add("on");
+                lis[1].classList.remove("on");
+                lis[2].classList.remove("on");
+            }
+            if(scroll>=wh && scroll<wh*2){
+                lis[1].classList.add("on");
+                lis[0].classList.remove("on");
+                lis[2].classList.remove("on");
+            }
+            if(scroll>=wh*2 && scroll<wh*3){
+                lis[2].classList.add("on");
+                lis[0].classList.remove("on");
+                lis[1].classList.remove("on");
+            }
+        });
+        
+    </script>
+</body>
+</html>

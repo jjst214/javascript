@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <ul id="ul">
+      <li>A음료수 : 500원</li>
+      <li>B음료수 : 700원</li>
+      <li>C음료수 : 1000원</li>  
+    </ul>
+    <button onclick="btnClick(100)">100</button>
+    <button onclick="btnClick(500)">500</button>
+    <button onclick="btnClick(1000)">1000</button>
+    <p id="value"></p>
+    <p id="drink"></p>
+    <script>
+        let a = "A음료수";
+        let b = "B음료수";
+        let c = "C음료수";
+        let sum = 0;
+        function btnClick(num){
+            sum += num;
+            document.getElementById("value").innerHTML = sum;
+            selectCh();
+        }
+        function selectCh(){
+            let selectMenu = "";
+            if(sum>=1000){
+                document.querySelector("#drink").innerHTML = a + ", " + b + ", " + c;
+            }else if(sum>=700){
+                document.querySelector("#drink").innerHTML = a + ", " + b;
+            }else if(sum>=500){
+                document.querySelector("#drink").innerHTML = a;
+            }else{
+                document.querySelector("#drink").innerHTML = "못사연";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let scores = [85,65,75,80,90,95];
+        //find(), filter(), map()
+        /*  find() 배열에서 해당하는 하나의 값을차증면 그 값을 리턴하고 종료
+            filter() 배열에서 조건에 맞는 배열 요소를 새로운 배열로 리턴
+            map()  배열의 요소를 다른 형태로 변경해서 새로운 배열을 리턴 */
+        
+        let scores2 = scores.filter((v) => { return v>70 });
+        let score = scores.find(v => v >= 90);
+        let scores3 = scores.map(v=>String(v));
+        scores.forEach(v => console.log(v));
+        // scores.forEach(function(v){
+        //     console.log(v);
+        // });
+        console.log(scores2);  // scores배열에서 70보다 작은 65를 뺀 배열이 scores2에 새로 만들어짐
+        console.log(score);   // scores배열을 앞에서부터 순차적으로 값을 검사하면서 90과 같거나 큰 값을 만나면 그 값 1개를 리턴하고 종료됨
+        console.log(scores3);
+        
+        //생성자 함수
+        function Student(name, age, score){
+            this.name = name;
+            this.age = age;
+            this.score = score;
+        }
+
+        let students = [
+            new Student("재훈", 32, 80), 
+            new Student("수민", 26, 85),
+            new Student("세영", 31, 75),
+            new Student("재원", 22, 70),
+            new Student("상진", 24, 60),
+        ];
+        console.log(students);
+
+        let student2 = students.filter(student => student.score>=75);
+
+        let names = students.map(student=>student.name).join();
+
+        console.log(student2);
+        console.log("학생이름만 있는 문자열 : " + names);
+    </script>
+</body>
+</html>

@@ -7,13 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+    <button onclick="imgCh()">이미지 변경</button>
+    <img src="images/dog.jpg" alt="강아지 사진">
     <script>
-        let a = prompt("숫자 입력해 ", '');
-        
-        if(a%2 == 1){
-            alert("홀수임");
-        }else{
-            alert("짝수임");
+        console.log(document.querySelector("img").src);
+        function imgCh(){
+            document.querySelector("img").src = "images/dog2.jpg";
         }
     </script>
 </body>

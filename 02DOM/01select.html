@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box1">박스1입니다.</div>
+    <div id="box2">박스2입니다.</div>
+    <p id="p1">p입니다.</p>
+    <ul>
+        <li>list1</li>
+        <li>list2</li>
+        <li>list3</li>
+    </ul>
+    <div id="contents">
+        
+    </div>
+    
+    <script>
+        let str = document.getElementById("box1").innerHTML;
+        document.getElementById("box2").innerHTML = "금요일입니다.";
+
+        document.querySelector("#p1").innerHTML = "zz";
+
+        //복수선택은 유사배열형태로 선택됨
+        let lis = document.getElementsByTagName("li");
+        
+        lis[0].innerHTML = "aaa";
+        lis[1].innerHTML = "bbb";
+        lis[2].innerHTML = "ccc";
+
+        let str2 = "";
+        for(let i=0; i<3; i++){
+            str2 += "<p>p" + i + "입니다.</p>";
+        }
+        document.getElementById("contents").innerHTML = str2;
+    </script>
+</body>
+</html>

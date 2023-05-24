@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Document</title>
+    <style>
+        ul{
+            background-color: lightgray;
+            display: flex;
+            height: 100px;
+            align-items: center;
+        }
+        li{
+            list-style: none;
+            padding: 0 20px;
+        }
+        div{
+            background-color: tomato;
+            height: 0;
+            transition: 0.5s;
+        }
+        .toggle{
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>list1</li>
+        <li>list2</li>
+        <li>list3</li>
+        <li>list4</li>
+    </ul>
+    <div></div>
+    <script>
+        // document.querySelector("li").addEventListener("mouseenter", function(){
+        //     document.querySelector("div").classList.add("toggle");
+        // });
+        $("li").addEventListener("mouseenter",function(){
+            $("li").addClass("toggle");
+        })
+        document.querySelector("ul").addEventListener("mouseleave", function(){
+            document.querySelector("div").classList.remove("toggle");
+        });
+    </script>
+</body>
+</html>

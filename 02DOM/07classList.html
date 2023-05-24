@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        li{list-style: none;}
+        header{
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            align-items: center;
+        }
+        ul{
+            display: flex;
+        }
+        ul li{
+            padding: 0 20px;
+        }
+        .on{
+            background-color: pink;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1></h1>
+        <ul>
+            <li>list1</li>
+            <li>list2</li>
+            <li>list3</li>
+            <li>list4</li>
+        </ul>
+    </header>
+    <script>
+        function headerClass(){
+            document.querySelector("header").classList.toggle("on");
+        }
+        
+        let header = document.querySelector("header");
+        // header.onclick = headerClass;
+        
+        //표준 이벤트 연결자
+        header.addEventListener("click",headerClass);
+    </script>
+</body>
+</html>

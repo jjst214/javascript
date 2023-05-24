@@ -1,0 +1,10 @@
+DOM
+요소 선택하기
+1.단수선택
+1-1. document.getElementById("id명");
+1-2. document.querySelector("css선택자"); //#id , .class
+
+2.복수선택(묶음 선택)
+2-1. document.getElementsByClassName("클래스이름");
+2-2. document.getElementsByTagName("클래스이름");
+2-3. document.querySelectorAll("css선택자");

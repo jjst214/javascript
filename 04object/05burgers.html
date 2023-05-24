@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="burger">
+
+    </ul>
+    <script>
+        function Burger(name, price, size){
+            this.name = name;
+            this.price = price;
+            this.size = size;
+        }
+        
+        let burgers = [
+            new Burger("새우버거", 5000, "big"),
+            new Burger("불고기버거", 4500, "regular"),
+            new Burger("쥬니어불고기버거", 3500, "small"),
+            new Burger("치즈버거", 5500, "regular"),
+            new Burger("스테이크버거", 7000, "big"),
+            new Burger("치킨버거", 5500, "regular"),
+            new Burger("야채버거", 4500, "regular"),
+            new Burger("쥬니어새우버거", 3000, "small")
+        ];
+
+        let burgers2 = burgers.filter(function(b){
+            return b.size == "regular";
+        });
+        // console.log(burgers2);
+        
+        // let burgers3 = burgers.map(function(b){
+        //     return b.name;
+        // });
+        // console.log(burgers3);
+
+        // let burgers4 = burgers.filter(burger=>burger.price>=5000);
+        // console.log(burgers4);
+
+        // let burgers5 = burgers.find(burger=>burger.name == "스테이크버거");
+        // console.log(burgers5);
+
+        let burgerHTML = [];
+
+        let bur = new Burger("띠드버거", 3000, "big");
+        for(let b in bur){
+            console.log(b);
+        }
+        for(let a of burgers){
+            console.log(a.name);
+        }
+        // for(let b of burgers){
+        //     burgerHTML.push("<li>" + b.name + ", " + b.price + ", " + b.size + "</li>");
+        // }
+        // document.querySelector("#burger").innerHTML = burgerHTML.join("");
+
+    </script>
+</body>
+</html>

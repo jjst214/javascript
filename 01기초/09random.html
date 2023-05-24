@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // let randomNum = Math.floor(Math.random()*5)+1;
+        // console.log(randomNum);
+        
+        
+        //템플릿 리터럴 구문
+        // `문자 ${변수}`
+        // "문자" + 변수
+        function gameGo(){
+            let user = Math.floor(Math.random()*6)+1;
+            let com = Math.floor(Math.random()*6)+1;
+            console.log(`컴퓨터 주사위 : ${com}, 유저 주사위 : ${user}`);
+            if(com == user){
+                console.log("비겼습니다.");
+            }else if(com>user){
+                console.log("컴퓨터가 이겼습니다.");
+            }else{
+                console.log("유저가 이겼습니다.");
+            }
+        }
+        gameGo();
+    </script>
+</body>
+</html>
