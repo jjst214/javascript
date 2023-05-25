@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{list-style: none;}
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        body{
+            transition: 0.5s;
+        }
+        .blackbg{
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .active{
+            height: 120px;
+            opacity: 1;
+        }
+        div>div{
+            justify-content: space-between;
+            align-items: center;
+        }
+        body>div:first-child ul li{
+            margin: 5px 10px;
+            height: 3px;
+            width: 25px;
+            background: #fff;
+        }
+        #menu{
+            width: 400px;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: -400px;
+            transition: 0.5s;
+            z-index: 1;
+        }
+        #menu.move{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #menu>div:first-child{
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+        #menu h2{
+            width: 130px;
+            text-align: center;
+            height: 80px;
+            padding: 30px 20px;
+            font-size: 18px;
+            background: red;
+            color: #fff;
+        }
+        #side li ul li:not(:last-child){
+            border-bottom: 1px solid #ddd;
+        }
+        
+        li>ul{
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <h2>logo</h2>
+        </div>
+    </div>
+    <div id="menu">
+        <div>
+            <h2>메뉴닫기</h2>
+        </div>
+        <div>
+            <ul id="side">
+                <li>
+                    <p>회사소개</p>
+                    <ul>
+                        <li>서브메뉴1</li>
+                        <li>서브메뉴2</li>
+                        <li>서브메뉴3</li>
+                        <li>서브메뉴4</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>투자정보</p>
+                    <ul>
+                        <li>서브메뉴1</li>
+                        <li>서브메뉴2</li>
+                        <li>서브메뉴3</li>
+                        <li>서브메뉴4</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>홍보센터</p>
+                    <ul>
+                        <li>서브메뉴1</li>
+                        <li>서브메뉴2</li>
+                        <li>서브메뉴3</li>
+                        <li>서브메뉴4</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>인재채용</p>
+                    <ul>
+                        <li>서브메뉴1</li>
+                        <li>서브메뉴2</li>
+                        <li>서브메뉴3</li>
+                        <li>서브메뉴4</li>
+                    </ul>
+                </li>
+                <li>
+                    <p>교육신청</p>
+                    <ul>
+                        <li>서브메뉴1</li>
+                        <li>서브메뉴2</li>
+                        <li>서브메뉴3</li>
+                        <li>서브메뉴4</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let div = document.querySelector("body>div");
+        div.style.background = "pink";
+        div.style.width = "100%";
+        div.firstElementChild.style.display = "flex";
+        div.firstElementChild.style.height = "50px";
+        div.firstElementChild.style.width = "50%";
+
+        let logo = document.querySelector("div h2");
+        logo.style.color = "#fff";
+        logo.style.fontSize = "32px";
+        logo.style.height = "100%";
+
+        let menu = document.querySelector("#menu");
+        menu.style.background = "#fff";
+        document.querySelector("ul").addEventListener("click", function(){
+            menu.classList.add("move");
+            document.querySelector("body").classList.add("blackbg");
+        });
+        document.querySelector("#menu h2").addEventListener("click", function(){
+            menu.classList.remove("move");
+            document.querySelector("body").classList.remove("blackbg");
+            for(let a of inner){
+                a.classList.remove("active");
+            }
+        });
+
+        let lis = document.querySelectorAll("#side>li>p");
+        for(let a of lis){
+            a.style.borderBottom = "1px solid #ddd";
+            a.style.padding = "20px 0";
+        }
+
+        let inner = document.querySelectorAll("#side>li>ul");
+        for(let a of inner){
+            a.style.background = "#ccc";
+        }
+        let inner_menu = document.querySelectorAll("#side>li>ul>li");
+        for(let a of inner_menu){
+            a.style.padding = "5px 15px";
+            a.style.height = "30px";
+        }
+        
+        let side = document.querySelectorAll("#side>li");
+        for(let a in lis){
+            lis[a].addEventListener("click", function(){
+                for(let j of inner){
+                    j.classList.remove("active");
+                }
+                inner[a].classList.add("active");
+            });
+        }
+    </script>
+</body>
+</html>

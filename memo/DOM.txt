@@ -16,6 +16,7 @@ DOM
 4)자식 요소노드 탐색
 4-1. firstElementChild 요소노드 중 첫번째 자식 노드 탐색
 4-2. lastElementChild 요소노드 중 마지막 자식 노드 탐색
+4-3. children 자식요소들을 HTML 컬렉션(배열같은거)에 담아서 리턴
 
 5)부모 요소노드 탐색
 parentElement 부모 요소노드 탐색
@@ -24,7 +25,7 @@ parentElement 부모 요소노드 탐색
 1)createElement("div") 요소노드(태그) 생성
 2)createTextNode("안녕하세요") 텍스트 노드 생성(잘 안씀)
 3)노드 삽입
-3-1. append() 노드끝에 삽입
+3-1. node.append() 노드끝에 삽입
 3-2. prepand() 노드앞에 삽입
 3-3. before() 노드 이전에 삽입
 3-4. after() 노드 다음에 삽입

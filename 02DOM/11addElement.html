@@ -22,7 +22,24 @@
         }
         let li2 = document.querySelector("li:nth-child(2)");
         let prev = li2.previousElementSibling;
-        
+        console.log(prev);
+        let next = li2.nextElementSibling;
+        console.log(next);
+
+        //요소노드 생성
+        let li = document.createElement("li"); //li 생성
+        let textnode = document.createTextNode("list5"); //li안에 들어갈 text 노드 생성
+        li.append(textnode); //생성한 li에 내용추가
+        document.querySelector("ul").prepend(li); //ul에 생성한 li를 맨 앞에 추가
+
+        let ul = document.querySelector("ul");
+        for(let a of ul.children){
+            a.style.color = "red";
+        }
+        ul.querySelector("li:nth-child(3)").style.fontSize = "24px";
+        li2.parentElement.style.background = "pink";
+        ul.lastElementChild.style.color = "yellow";
+
         // lis.forEach((li, index)=>{
         //     li.style.background = "lightblue";
         //     console.log(index);
