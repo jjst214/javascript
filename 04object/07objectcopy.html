@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let user = {
+            name: "green",
+            age: 20
+        }
+        let user2 = user;
+        let user3 = {};
+        for(let a in user){
+            user3[a] = user[a];
+        }
+        user.name = "bbb";
+
+        console.log(user);
+        console.log(user2);
+        console.log(user3);
+
+        //Object.assign()
+        let clone = Object.assign({}, user);
+        console.log(clone);
+
+        let dog1 = {
+            name: "구름",
+            age: 2
+        }
+        let dog2 = {
+            color: "흰색",
+            name: "솜"
+        }
+        Object.assign(dog1, dog2);
+        console.log(dog1);
+        // 스프레드 구문 ...
+        let dog3 = {...dog1, color: "흰색"};
+        console.log(dog3);
+
+        // concat()
+        let arr = [1, 2, 3, 4, 5];
+        let arr2 = arr.concat(6, 7);
+        let arr3 = [7, 8, 9];
+        let arr4 = arr.concat(arr3);
+        
+        console.log(arr2);
+        console.log(arr4);
+    </script>
+</body>
+</html>

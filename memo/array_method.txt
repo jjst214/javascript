@@ -24,4 +24,15 @@ strs.join("*") -> "a*b*c*d"
 
 3. reverse() 배열을 반전해서 리턴
 
-4.slice(start idx, end) 배열의 일부분을 새로운 배열로 리턴
+4. slice(start idx, end) 배열의 일부분을 새로운 배열로 리턴
+
+5. find() 배열 앞에서부터 요소를 검사하면서 조건에 부합하는 값을 하나 리턴하고 종료
+// let burgers5 = burgers.find(burger=>burger.name == "스테이크버거");
+
+6. map() 배열안의 모든 값에 함수를 적용시켜 새로운 배열을 만들어냄
+    // let burgers3 = burgers.map(function(b){
+    //     return b.name;
+    // });
+
+7. filter() 배열안의 값에대해 조건에 부합하는 배열들만 모아 새로운 배열을 만듬
+

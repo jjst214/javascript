@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        let a = true;
+        
+        function game(){
+            
+            while(a){
+                let com = Math.floor(Math.random() * 3);
+                let user = Number(prompt("0:바위  1:가위  2:보 입력하세요"));
+                let result = user-com;
+                
+                let com_result = "";
+                let user_result = "";
+                
+                if(com == 0){
+                    com_result = "바위";
+                }else if(com == 1){
+                    com_result = "가위";
+                }else{
+                    com_result = "보";
+                }
+
+                if(user == 0){
+                    user_result = "바위";
+                }else if(user == 1){
+                    user_result = "가위";
+                }else{
+                    user_result = "보";
+                }
+
+                switch(result){
+                    case 0:
+                        console.log("당신 : " + user_result + ", 컴퓨터 : " + com_result);
+                        console.log("비겼습니다.");
+                        break;
+                    case -1:
+                    case 2:
+                        console.log("당신 : " + user_result + ", 컴퓨터 : " + com_result);
+                        console.log("이겼습니다.");
+                        break;
+                    case -2:
+                    case 1:
+                        console.log("당신 : " + user_result + ", 컴퓨터 : " + com_result);
+                        console.log("졌습니다.");
+                        break;
+                    default:
+                        a = false;
+                }
+            }
+
+        };
+        game();
+    </script>
+</body>
+</html>

@@ -1,10 +1,30 @@
 DOM
-요소 선택하기
-1.단수선택
+[1] 요소 선택하기
+1)단수선택
 1-1. document.getElementById("id명");
 1-2. document.querySelector("css선택자"); //#id , .class
 
-2.복수선택(묶음 선택)
+2)복수선택(묶음 선택)
 2-1. document.getElementsByClassName("클래스이름");
 2-2. document.getElementsByTagName("클래스이름");
-2-3. document.querySelectorAll("css선택자");
+2-3. document.querySelectorAll("css선택자"); // li
+
+3)형제 요소노드 탐색
+3-1. nextElementSibling 다음 혹은 우측에 있는 형제요소노드
+3-2. previousElementSibling 이전 혹은 좌측에 있는 형제요소노드
+
+4)자식 요소노드 탐색
+4-1. firstElementChild 요소노드 중 첫번째 자식 노드 탐색
+4-2. lastElementChild 요소노드 중 마지막 자식 노드 탐색
+
+5)부모 요소노드 탐색
+parentElement 부모 요소노드 탐색
+
+[2] DOM 수정하기
+1)createElement("div") 요소노드(태그) 생성
+2)createTextNode("안녕하세요") 텍스트 노드 생성(잘 안씀)
+3)노드 삽입
+3-1. append() 노드끝에 삽입
+3-2. prepand() 노드앞에 삽입
+3-3. before() 노드 이전에 삽입
+3-4. after() 노드 다음에 삽입
