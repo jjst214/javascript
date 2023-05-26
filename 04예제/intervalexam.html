@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        
+        #wrap{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #header{
+            width: 100%;
+            height: 150px;
+            background: rgb(172, 57, 248);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        #content{
+            padding: 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #content #word_div{
+            width: 800px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #content #word_div h1{
+            padding: 20px 0;
+            font-size: 60px;
+            font-weight: bold;
+            color: rgb(172, 57, 248);
+        }
+        #content #input{
+            width: 250px;
+            height: 30px;
+            font-size: 16px;
+            padding: 0 5px;
+        }
+        #content #submit{
+            margin: 15px 0;
+            width: 300px;
+            height: 60px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        #content #game{
+            padding: 10px 0;
+        }
+        #content #game span{
+            font-weight: bold;
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="header">
+            <h2>타자게임</h2>
+        </div>
+        <div id="content">
+            <div id="word_div">
+                <h1></h1>
+            </div>
+            <input id="input" type="text"/>
+            <div id="game">
+                <span id="timer">남은 시간 : 0초 </span>
+                <span id="score">점수 : 0점</span>
+            </div>
+            <button id="submit" type="submit">게임시작</button>
+        </div>
+    </div>
+    <script>
+        let word = ["class", "method", "java", "javascript", "database"
+                    , "oracle", "github", "html", "spring", "function"];
+        let h1 = document.querySelector("#content #word_div h1");
+        let change = Math.floor(Math.random()*10);
+        let start_btn = document.querySelector("#submit");
+        let input = document.querySelector("#input");
+        let value = document.querySelector("#score");
+        let score = 0;
+        let timer;
+        let num;
+        
+        //게임시작 버튼 클릭이벤트(게임시작)
+        start_btn.addEventListener("click", function(){
+            h1.innerHTML = word[change]; 
+            start_btn.disabled = "disabled";
+            num = 20;
+            document.querySelector("#timer").innerHTML = "남은 시간 : " + num + "초 ";
+
+            game();
+            
+            //타이머 interval
+            timer = setInterval(function(){
+                num--;
+                document.querySelector("#timer").innerHTML = "남은 시간 : " + num + "초 ";
+                numCheck();
+            }, 1000);
+        });
+        
+        // 남은시간이 0초가 되면 멈추는 함수
+        function numCheck(){
+            console.log(num)
+            if(num == 0){
+                clearInterval(timer);
+                // start_btn.innerHTML = "게임종료";
+                start_btn.disabled = "";
+                h1.innerHTML = "";
+                value.innerHTML = "점수 : 0점";
+            }
+            
+        }
+        
+        // 엔터에 반응해서 input값과 h1에 뿌려진 단어를 비교하는 함수
+        function game(){
+            input.addEventListener("keydown", function(e){
+                if(e.key == "Enter"){
+                    if(!input.value == ""){
+                        if(input.value == h1.innerHTML){
+                            score += 10;
+                            value.innerHTML = "점수 : " + score + "점";
+                            ran();
+                            input.value = "";
+                            input.focus();
+                        }else{
+                            input.value = "";
+                            input.focus();
+                        }
+                    }
+                }
+            });
+            function ran(){
+                change = Math.floor(Math.random()*10);
+                h1.innerHTML = word[change];
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        li{list-style: none;}
+        body{line-height: 1.6;display: flex;justify-content: center;}
+        #container{
+            width: 100%;
+            height: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            background-color: beige;
+        }
+        #container>div p{
+            font-size: 26px;
+            font-weight: bold;
+            
+        }
+        #container>div{
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #container #todo{
+            border-radius: 20px;
+            padding: 0 20px;
+            width: 800px;
+            height: 30px;
+        }
+        #container #submit{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            color: blue;
+        }
+        #container ul li{
+            background: #ddd;
+            text-align: left;
+            padding: 10px 160px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #container ul li button{
+            line-height: 20px;
+            text-align: center;
+            width: 20px;
+            height: 20px;
+            border: #ddd;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div>
+            <p>To do List</p>
+            <div>
+                <input id="todo" type="text"/>
+                <button id="submit" type="submit">+</button>
+            </div>
+        </div>
+        <ul id="list">
+            
+        </ul>
+    </div>
+    <script>
+        let todo = document.querySelector("#todo");
+        let ul = document.querySelector("#list");
+        
+        //todo 작성 후 추가버튼 클릭 이벤트
+        document.querySelector("#submit").addEventListener("click",function(){
+            if(!todo.value == ""){
+                let li = document.createElement("li");
+                let remove_btn = document.createElement("button");
+                let btn_txt = document.createTextNode("x");
+                
+                li.innerHTML = todo.value;
+                li.append(remove_btn);
+                remove_btn.append(btn_txt);
+                ul.append(li);
+                todo.value = "";
+                removeEvent();
+                todo.focus();
+            }
+        })
+        //todo input에서 엔터 감지 후 리스트에 추가하는 이벤트
+        todo.addEventListener("keydown", function(e){
+            if(e.key == "Enter"){
+                if(!todo.value == ""){
+                    let li = document.createElement("li");
+                    let remove_btn = document.createElement("button");
+                    let btn_txt = document.createTextNode("x");
+                    
+                    li.innerHTML = todo.value;
+                    li.append(remove_btn);
+                    remove_btn.append(btn_txt);
+                    ul.append(li);
+                    todo.value = "";
+                    removeEvent();
+                    todo.focus();
+                }
+            }
+        });
+
+        // list 삭제버튼 이벤트
+        function removeEvent(){
+            let btn = document.querySelectorAll("li button");
+            if(!btn) { return; }
+            btn.forEach(btn => {
+                btn.addEventListener("click", function(){
+                    this.parentElement.remove();
+                });
+            });
+        }
+        
+    </script>
+</body>
+</html>

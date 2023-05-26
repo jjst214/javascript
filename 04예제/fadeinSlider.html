@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        @keyframes fade{
+            0%{
+                opacity: 0.4;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        body{
+            width: 100%;
+            height: 100%;
+        }
+        div{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: fade 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div><img src="images/photo01.gif" alt=""></div>
+    <div><img src="images/photo02.gif" alt=""></div>
+    <div><img src="images/photo03.gif" alt=""></div>
+    <script>
+        let divs = document.querySelectorAll("div");
+        let indexNum = 0;
+        let nextNum;
+        divs.forEach(div=>div.style.display="none");
+        divs[0].style.display = "block";
+        setInterval(function(){
+            nextNum = (indexNum+1) % divs.length;
+            divs[indexNum].style.display = "none";
+            divs[nextNum].style.display = "block";
+            indexNum = nextNum;
+        }, 2000);
+    </script>
+</body>
+</html>

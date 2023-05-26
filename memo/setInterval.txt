@@ -1,0 +1,10 @@
+자바스크립트 비동기
+setInterval(function, time)
+
+인터벌 생성
+let timer = setInterval(function(){
+	alert("금요일");
+}, 2000);
+
+인터벌 정지
+clearInterval(timer);

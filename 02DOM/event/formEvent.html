@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <input id="userid" type="text" name="userid"/>
+        <select id="selectBox">
+            <option value="https://naver.com">선택1</option>
+            <option value="https://google.com">선택2</option>
+        </select>
+    </form>
+    <script>
+        let input = document.querySelector("#userid");
+        let select = document.querySelector("#selectBox");
+        input.addEventListener("input", function(){
+            console.log(input.value);
+        });
+        select.addEventListener("change", function(){
+            console.log(this.value);
+        });
+    </script>
+
+</body>
+</html>
