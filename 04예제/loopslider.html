@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* slick , swipe slider 라이브러리를 사용하자!!! */
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        body{
+            width: 100%;
+            height: 100vh;
+        }
+        li{list-style: none;}
+        #imgView{
+            width: 600px;
+            height: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+        }
+        #imgDivs{
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .imgdiv{
+            position: absolute;
+            top: 0;
+        }
+        #imgDivs div{
+            position: absolute;
+            top: 0;
+        }
+        
+        #imgDivs div:nth-child(1){
+            left: 0;
+        }
+        #imgDivs div:nth-child(2){ /* 본이미지 시작 */
+            left: 100%;
+        }
+        #imgDivs div:nth-child(3){
+            left: 200%;
+        }
+        #imgDivs div:nth-child(4){
+            left: 300%;
+        }
+        #imgDivs div:nth-child(5){ /* 본이미지 끝 */
+            left: 400%;
+        }
+        #imgDivs div:nth-child(6){
+            left: 500%;
+        }
+        #prevbtn{
+            left:calc(50% - 400px);
+        }
+        #nextbtn{
+            left:calc(50% + 320px);
+        }
+        .btn{
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: blueviolet;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="prevbtn" class="btn">이전</div>
+    <div id="nextbtn" class="btn">다음</div>
+    <div id="imgView">
+        <div id="imgDivs">
+            <div class="imgdiv"><img src="images/img_lights1.jpg" alt=""></div>
+            <div class="imgdiv"><img src="images/img_lights2.jpg" alt=""></div>
+            <div class="imgdiv"><img src="images/img_lights3.jpg" alt=""></div>
+            <div class="imgdiv"><img src="images/img_lights4.jpg" alt=""></div>
+        </div>
+    </div>
+    <script>
+        const imgDivs = document.querySelector("#imgDivs");
+        const cloneFirst = imgDivs.firstElementChild.cloneNode(true);
+        const cloneLast = imgDivs.lastElementChild.cloneNode(true);
+        const nextbtn = document.querySelector("#nextbtn");
+        const prevbtn = document.querySelector("#prevbtn");
+        imgDivs.append(cloneFirst);
+        imgDivs.prepend(cloneLast);
+        const slideImgs = document.querySelectorAll(".imgdiv");
+        slideImgs.forEach((img, index)=>{
+            img.style.left=`${index*100}`;
+        });
+        imgDivs.style.left = "-100%";
+
+        let current = 1;
+        let timer;
+
+        //div를 이동시키는 함수
+        function divMove(num){
+            imgDivs.style.transition = "0.3s";
+            imgDivs.style.left = `${-(num*100)}%`;
+            current = num;
+            if(num == 5){
+                setTimeout(function(){
+                    imgDivs.style.transition = "0s";
+                    imgDivs.style.left = "-100%";
+                    current = 1;
+                },300)
+            }
+        }
+
+        // setInterval 시작하는 함수
+        function startIt(){
+            if(timer){stopIt();}
+            timer = setInterval(function(){
+                divMove(current+1);
+            }, 3000);
+        }
+
+        // setInterval 정지하는 함수
+        function stopIt(){
+            clearInterval(timer);
+        }
+
+        prevbtn.addEventListener("mouseenter", stopIt);
+        prevbtn.addEventListener("mouseleave", startIt);
+        prevbtn.addEventListener("click",function(){
+            prev = current-1;
+            divMoveright(prev);
+        });
+
+        nextbtn.addEventListener("mouseenter", stopIt);
+        nextbtn.addEventListener("mouseleave", startIt);
+        nextbtn.addEventListener("click",function(){
+            next = current+1;
+            divMove(next);
+        });
+        
+        function divMoveright(num){
+            imgDivs.style.transition = "0.3s";
+            imgDivs.style.left = `${-(num*100)}%`;
+            current = num;
+            if(num == 0){
+                setTimeout(function(){
+                    imgDivs.style.transition = "0s";
+                    imgDivs.style.left = "-400%";
+                    current = 4;
+                },300)
+            }
+        }
+
+        startIt();
+    </script>
+</body>
+</html>

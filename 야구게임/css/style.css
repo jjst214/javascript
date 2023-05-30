@@ -1,0 +1,90 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+li{list-style: none;}
+#wrap{
+    width: 100%;
+    height: 100vh;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#board{
+    width: 40%;
+    height: 150px;
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+}
+#wrap>div:last-child{
+    width: 100%;
+    height: 300px;
+    background-color: antiquewhite;
+}
+#round{
+    width: 10%;
+    height: 100%;
+    background-color: blue;
+}
+#teams{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#teams>div{
+    width: 100%;
+    height: 50%;
+    background-color: azure;
+}
+#teams>div:last-child{
+    border-top: 1px solid #ccc;
+}
+#score{
+    width:10%;
+    height: 100%;
+}
+#score>div{
+    width: 100%;
+    height: 50%;
+    background-color: azure;
+    border-left: 1px solid #ccc;
+}
+#score>div:last-child{
+    border-top: 1px solid #ccc;
+}
+#minimap{
+    width: 20%;
+    height: 100%;
+    background-color: aqua;
+    position: relative;
+}
+#minimap div:nth-child(1){
+    position: absolute;
+}
+#minimap div:nth-child(2){
+    
+}
+#minimap div:nth-child(3){
+    
+}
+#minimap div:nth-child(4){
+    
+}
+#round-board{
+    width: 20%;
+    height: 100%;
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#round-board>div{
+    width: 100%;
+    height: 100px;
+    background-color: beige;
+}
+#round-board>div:last-child{
+    border-top: 1px solid #ccc;
+}

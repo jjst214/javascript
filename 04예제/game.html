@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0; box-sizing: border-box;}
+        #wrap{
+            width: 70%;
+            margin: 50px auto;
+            background-color: coral;
+            padding: 2px;
+        }
+        .div-scoreboard{
+            border: 2px solid #fff;
+            text-align: center;
+            color: #fff;
+        }
+        .div-short-left{
+            padding-top: 20px;
+            line-height: 40px;
+        }
+        #short-left{
+            background: #000;
+            width: 80px;
+            display: inline-block;
+        }
+        .div-score{
+            display: flex;
+            justify-content: center;
+        }
+        .div-score-list{
+            border: 1px solid #fff;
+            width: 30%;
+            padding: 40px;
+            margin: 20px;
+        }
+        .div-score-list div:nth-child(2){
+            background-color: #000;
+            line-height: 40px;
+            margin-top: 20px;
+        }
+        #text{
+            padding: 30px;
+        }
+        .div-control{
+            background-color: tomato;
+            display: flex;
+            justify-content: center;
+
+        }
+        .div-control > div{
+            padding: 30px;
+            margin: 30px;
+            text-align: center;
+            color: #fff;
+        }
+        button{
+            padding: 10px 20px;
+        }
+    </style>
+    <script defer src="game.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <!-- 점수판 부분 -->
+        <div class="div-scoreboard">
+            <div class="div-short-left">
+                남은 슛 횟수
+                <span id="short-left">0</span>
+            </div>
+            <div class="div-score">
+                <div class="div-score-list">
+                    <div>컴퓨터</div>
+                    <div id="computer-score">0</div>
+                </div>
+                <div class="div-score-list">
+                    <div>사람</div>
+                    <div id="user-score">0</div>
+                </div>
+            </div>
+            <div id="text">컴퓨터부터 시작합니다.</div>
+        </div>
+        <!-- 버튼 부분 -->
+        <div class="div-control">
+            <div>
+                <div>컴퓨터</div>
+                <button class="btn-computer">슛하기</button>
+            </div>
+            <div>
+                <div>사용자</div>
+                <button class="btn-user" disabled>2점슛</button>
+                <button class="btn-user" disabled>3점슛</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
