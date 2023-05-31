@@ -1,31 +1,48 @@
 *{margin: 0; padding: 0; box-sizing: border-box;}
 li{list-style: none;}
+#intro{
+    font-size: 60px;
+    text-align: center;
+    text-shadow: 5px 5px 5px gray;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+}
+#intro button{
+    color: #fff;
+    font-size: 40px;
+    width: 400px;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    padding: 15px 0;
+    outline-style: none;
+}
+#intro button:hover{
+    color: yellow;
+}
 #wrap{
     width: 100%;
     height: 100vh;
-    background-color: aliceblue;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background: url(../images/1920px.jpg) no-repeat;
+    background-size: 100% 100%;
 }
 #board{
     width: 40%;
     height: 150px;
     background-color: antiquewhite;
-    display: flex;
+    display: none;
     align-items: center;
-}
-#wrap>div:last-child{
-    width: 100%;
-    height: 300px;
-    background-color: antiquewhite;
-    display: flex;
-    justify-content: space-between;
+    border-right: 1px solid #ccc;
 }
 #round{
     width: 10%;
     height: 100%;
-    background-color: blue;
+    background: #444;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,56 +80,53 @@ li{list-style: none;}
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
+}
+#score>div:first-child{
+    background: tomato;
 }
 #score>div:last-child{
     border-top: 1px solid #ccc;
+    background: rgb(35, 35, 124);
 }
 #minimap{
     width: 20%;
     height: 100%;
-    background-color: aqua;
+    background: #444;
     position: relative;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 #minimap div:nth-child(1){
     position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 15px;
-    height: 15px;
+    right: 20px;
+    top: 55px;
+    width: 40px;
+    height: 40px;
     background-color: #fff;
+    transform: rotateZ(45deg);
 }
 #minimap div:nth-child(2){
     position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 15px;
-    height: 15px;
+    left: 57px;
+    top: 20px;
+    width: 40px;
+    height: 40px;
     background-color: #fff;
+    transform: rotate(45deg);
 }
 #minimap div:nth-child(3){
     position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    width: 15px;
-    height: 15px;
+    left: 20px;
+    top: 55px;
+    width: 40px;
+    height: 40px;
     background-color: #fff;
-}
-#minimap div:nth-child(4){
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 15px;
-    height: 15px;
-    background-color: #bbb;
+    transform: rotate(45deg);
 }
 #round-board{
     width: 20%;
     height: 100%;
-    background-color: blueviolet;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,7 +134,8 @@ li{list-style: none;}
 #round-board>div{
     width: 100%;
     height: 100px;
-    background-color: beige;
+    background-color: #444;
+    color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -129,6 +144,7 @@ li{list-style: none;}
 #round-board p{
     font-size: 24px;
     font-weight: bold;
+    margin: 0 10px;
 }
 #round-board>div:first-child div{
     font-size: 20px;
@@ -140,41 +156,138 @@ li{list-style: none;}
 }
 #round-board>div:last-child{
     border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: row;
 }
 
 #commands{
     width: 300px;
-    height: 100%;
-    background-color: aqua;
-    display: flex;
+    height: 300px;
+    color: deeppink;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
 }
 #commands button{
+    font-size: 24px;
     width: 70%;
     height: 50px;
     margin: 5px 0;
     border-radius: 10px;
 }
+#commands button:hover{
+    background: rgb(90, 90, 228);
+    color: #fff;
+}
 #action-log{
+    display: none;
     width: 500px;
-    height: 100%;
-    background-color: aquamarine;
+    height: 300px;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+}
+#action-log h2{
+    width: 100%;
+    height: 15%;
+    padding: 5px;
+    text-align: center;
 }
 #action-log>ul{
     width: 100%;
-    height: 100%;
+    height: 85%;
     padding: 15px;
     display: flex;
     flex-direction: column-reverse;
 }
 #action-log>ul li{
     width: 100%;
-    height: 24px;
-    line-height: 20px;
+    height: 26px;
+    line-height: 26px;
     font-size: 20px;
     margin: 2px 0;
     font-weight: bold;
     border-bottom: 1px solid #aaa;
+}
+
+#game{
+    width: 100%;
+    height: 500px;
+    max-width: 1000px;
+    position: absolute;
+    top: 70%;
+    left: 55%;
+    transform: translate(-50%,-50%);
+    background:url(../images/ground.png) no-repeat;
+    background-size: contain;
+    display: none;
+}
+#game>div{
+    transition: 2s;
+}
+#game>div:nth-child(1){
+    position: absolute;
+    top: 42%;
+    left: 41%;
+    width: 45px;
+    height: 70px;
+    background: url(../images/pitcher.png) no-repeat;
+    background-size: contain;
+}
+#game>div:nth-child(2){
+    position: absolute;
+    top: 44%;
+    left: 65%;
+    width: 45px;
+    height: 70px;
+    background: url(../images/zuza.png) no-repeat;
+    background-size: contain;
+}
+#game>div:nth-child(3){
+    position: absolute;
+    top: 19%;
+    left: 41%;
+    width: 45px;
+    height: 70px;
+    background: url(../images/zuza.png) no-repeat;
+    background-size: contain;
+}
+#game>div:nth-child(4){
+    position: absolute;
+    top: 44%;
+    left: 17%;
+    width: 45px;
+    height: 70px;
+    background: url(../images/zuza.png) no-repeat;
+    background-size: contain;
+}
+#game>div:nth-child(5){
+    position: absolute;
+    bottom: 15%;
+    left: 33%;
+    width: 65px;
+    height: 73px;
+    background: url(../images/taja.png) no-repeat;
+    background-size: 100% 100%;
+}
+#turn{
+    width: 1000px;
+    height: 150px;
+    background:rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    display: none;
+}
+#turn h1{
+    color: #fff;
+    font-size: 100px;
 }

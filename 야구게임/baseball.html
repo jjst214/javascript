@@ -9,6 +9,10 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="intro">
+        <h1>그린아카데미<br>Baseball Game</h1>
+        <button>Game Start!!</button>
+    </div>
     <div id="wrap">
         <div id="board">
             <div id="round">
@@ -45,20 +49,26 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div id="commands">
-                <h2>공격/수비</h2>
-                <button type="submit">커맨드1</button>
-                <button type="submit">커맨드2</button>
-            </div>
-            <div id="action-log">
-                <ul id="log">
-                    <li>11111</li>
-                    <li>22222</li>
-                    <li>33333</li>
-                </ul>
-            </div>
+        <div id="commands">
+            <h2>공격/수비</h2>
+            <button type="submit">커맨드1</button>
+            <button type="submit">커맨드2</button>
         </div>
+        <div id="action-log">
+            <h2>event log title</h2>
+            <ul id="log">
+            </ul>
+        </div>
+    </div>
+    <div id="game">
+        <div data-key="투수"></div>
+        <div data-key="1루"></div>
+        <div data-key="2루"></div>
+        <div data-key="3루"></div>
+        <div data-key="타자"></div>
+    </div>
+    <div id="turn">
+        <h1>공격 턴 입니다</h1>
     </div>
 </body>
 </html>
