@@ -74,4 +74,30 @@ turnChk();
 // 게임 시스템 로직
 
 // 공격상황
-let random = Math.floor(Math.random()*10)+1;
+function ran(){
+    let random = Math.floor(Math.random()*10)+1;
+    return random;
+}
+
+commands.addEventListener("click", function(e){
+    let btnValue = e.target.dataset.atk;
+    if(btnValue == "swing"){
+        //computer 투수 50% 확률로 strike, ball 결정
+        if(ran()<6){   // 컴퓨터가 볼을 던졌을 때 스윙 성공률 20%
+            console.log("컴퓨터 스트라이크");
+            if(ran()<3){
+                console.log("스윙성공");
+                if(ran()<9){
+                    console.log("안타");
+                }else{
+                    console.log("홈런");
+                }
+            }else{
+                console.log("스윙실패");
+            }
+        }else{  // 컴퓨터 스트라이크 상황 스윙 성공률 40%
+            console.log("컴퓨터 볼");
+        }
+    }
+    
+});
