@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p><input type="text" id="ssn" name="ssn"> - 
+        <input type="text" id="ssn2" name="ssn">
+    </p>
+    <script>
+        let input1 = document.querySelector("#ssn");
+        let input2 = document.querySelector("#ssn2");
+        input1.addEventListener("input", function(){
+            if(this.value.length == 6 && !isNaN(Number(this.value))){
+                input2.focus();
+            }
+        });
+    </script>
+</body>
+</html>

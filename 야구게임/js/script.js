@@ -9,6 +9,7 @@ const ground = document.querySelector("#game");
 const board = document.querySelector("#board");
 const logUl = document.querySelector("#log");
 const lis = document.querySelectorAll("#log li");
+const juja = document.querySelectorAll("#minimap>div");
 let isUserTurn = true;
 let userScore = 0;
 let comScore = 0;
@@ -63,13 +64,15 @@ startbtn.addEventListener("click", function(){
     intro.style.display = "none";
     round.firstElementChild.innerHTML = `${roundtext}회초`;
     turn.firstElementChild.innerHTML = "공격 턴 입니다.";
-        turn.style.display = "block";
-        setTimeout(function(){
-            turn.style.display = "none";
-        }, 3000);
-        commands.firstElementChild.innerHTML = "공격";
-        commandBtns[0].innerHTML = "스윙!!";
-        commandBtns[1].innerHTML = "기다리기";
+    turn.style.display = "block";
+    setTimeout(function(){
+        turn.style.display = "none";
+    }, 3000);
+    commands.firstElementChild.innerHTML = "공격";
+    commandBtns[0].innerHTML = "스윙!!";
+    commandBtns[1].innerHTML = "기다리기";
+    
+    play();
 });
 // UI display 끝
 
@@ -108,7 +111,6 @@ function newRandom(){
     return Math.floor(Math.random()*10)+1;
 }
 
-
 function boardRefresh(){
     document.querySelector("#strike").lastElementChild.innerHTML = strike_cnt;
     document.querySelector("#ball").lastElementChild.innerHTML = ball_cnt;
@@ -116,100 +118,156 @@ function boardRefresh(){
     document.querySelector("#userScore").innerHTML = userScore;
     document.querySelector("#comScore").innerHTML = comScore;
 }
-
-let idx;
-let outIdx;
-boardRefresh();
-if(isUserTurn){ //유저턴이 true일때(공격상황)
-    commands.addEventListener("click", function(e){
-        idx = newRandom();
-        let btnValue = e.target.dataset.atk;
-        if(btnValue == "swing"){
-            //computer 투수 50% 확률로 strike, ball 결정
-            if(idx<=5){ // 컴퓨터 볼 상황
-                console.log("컴퓨터볼");
-                idx = newRandom();
-                if(idx<7){ // 스윙성공
-                    outIdx = newRandom();
-                    if(outIdx<=2){
-                        console.log("안타");
-                        newLi("안타");
-                    }else if(outIdx>=3 && outIdx<=4){
-                        console.log("홈런");
-                        newLi("홈런");
-                    }else if(outIdx>=5 && outIdx<=6){
-                        console.log("파울");
-                        newLi("파울");
-                        gameRule();
-                        boardRefresh();
-                    }else if(outIdx>=7 && outIdx<=8){
-                        console.log("땅볼아웃");
-                        gameRule();
-                        boardRefresh();
-                        
-                    }else{
-                        console.log("플라이아웃");
-                        gameRule();
-                        newLi("플라이아웃");
-                        boardRefresh();
-                        
-                    }
-                }else{ //스윙실패
-                    console.log("스윙실패" + outIdx);
-                    gameRule();
-                    boardRefresh();
-                }
-            }else{  // 컴퓨터 스트라이크 상황 스윙 성공률 40%
-                console.log("컴퓨터 스트라이크");
-                gameRule();
-            }
-        }else{ // 기다리기 선택
-            
-        }
-    });
-}else{
-
-}
-//아웃카운트 계산
-function gameRule(){
-    if(strike_cnt>=2){
-        if(strike_cnt==2){
-            if(outIdx==5 || outIdx==6){
-                strike_cnt = 2;
-                outIdx = 0;
-                boardRefresh();
-            }else{
-                strike_cnt = 0;
-                ball_cnt = 0;
-                outIdx = 0;
-                out_cnt++;
-                boardRefresh();
-            }
-        }
+let ran_val;
+let hit_ran;
+let hit_ran2;
+let first_stat = juja[0].dataset.value;
+let second_stat = juja[1].dataset.value;
+let third_stat = juja[2].dataset.value;
+function first_status(idx){
+    first_stat = idx;
+    if(first_stat == 0){
+        juja[0].style.background = "#fff";
     }else{
-        strike_cnt++;
-        boardRefresh();
+        juja[0].style.background = "yellow";
     }
-    if(outIdx>6){
-        out_cnt++;
-        strike_cnt = 0;
-        ball_cnt = 0;
-        outIdx = 0;
+}
+function second_status(idx){
+    second_stat = idx;
+    if(second_stat == 0){
+        juja[1].style.background = "#fff";
+    }else{
+        juja[1].style.background = "yellow";
     }
-    if(out_cnt >= 3){
-        console.log("삼진아웃");
-        newLi("삼진아웃");
-        out_cnt = 0;
-        strike_cnt = 0;
-        ball_cnt = 0;
-        boardRefresh();
-        if(isUserTurn){
-            isUserTurn = false;
-            turnChk();
-        }else{
-            isUserTurn = true;
-            turnChk();
+}
+function third_status(idx){
+    third_stat = idx;
+    if(third_stat == 0){
+        juja[2].style.background = "#fff";
+    }else{
+        juja[2].style.background = "yellow";
+    }
+}
+function play(){
+    if(isUserTurn){
+        commandBtns[0].addEventListener("click", function(e){
+            half_ran = newRandom();
+            if(half_ran>5){
+                hit_ran = newRandom();
+                if(hit_ran>3){ // com 스트라이크 상황, 80%확률로 치는거 성공
+                    hit_ran2 = newRandom();
+                    switch(hit_ran2){
+                        case 1:
+                        case 2:
+                            console.log("안타");
+                            check(e.target.dataset.atk);
+                            break;
+                        case 3:
+                        case 4:
+                            console.log("홈런");
+                            check(e.target.dataset.atk);
+                            break;
+                        case 5:
+                        case 6:
+                            console.log("파울");
+                            check(e.target.dataset.atk);
+                            break;
+                        case 7:
+                        case 8:
+                            console.log("땅볼아웃");
+                            check(e.target.dataset.atk);
+                            break;
+                        default:
+                            console.log("플라이아웃");
+                            check(e.target.dataset.atk);
+                            break;
+                    }
+                }else{ //못쳤을때
+
+                }
+            }else{
+
+            }
+        })
+    }else{
+
+    }
+
+    function check(val){
+
+        function outChk(){
+            out_cnt++;
+            if(out_cnt>=3){
+                newLi("삼진아웃");
+                first_status(0);
+                second_status(0);
+                third_status(0);
+                if(isUserTurn){
+                    isUserTurn = false;
+                }else{
+                    isUserTurn = true;
+                }
+            }
         }
-        
+
+        //배트에 공이 맞은 상황 처리
+        switch(hit_ran2){
+            // 안타
+            case 1:
+            case 2:
+                if(first_stat == 0){
+                    first_status(1);
+                }else{
+                    if(second_stat == 0){
+                        second_status(1);
+                    }else{
+                        if(third_stat == 0){
+                            third_status(1);
+                        }else{
+                            if(isUserTurn){
+                                userScore++;
+                                boardRefresh();
+                            }else{
+                                comScore++;
+                                boardRefresh();
+                            }
+                        }
+                    }
+                }
+                break;
+            // 홈런
+            case 3:
+            case 4:
+                let sum = 1;
+                sum = sum + Number(first_stat) + Number(second_stat) + Number(third_stat);
+                if(isUserTurn){
+                    userScore += sum;
+                }else{
+                    comScore += sum;
+                }
+                first_status(0);
+                second_status(0);
+                third_status(0);
+                boardRefresh();
+                break;
+            // 파울
+            case 5:
+            case 6:
+                if(val == "swing"){
+                    if(strike_cnt!=2){
+                        strike_cnt++;
+                    }
+                }else{
+                    
+                }
+                break;
+            case 7:
+            case 8:
+                console.log("땅볼아웃");
+                break;
+            default:
+                console.log("플라이아웃");
+                break;
+        }
     }
 }

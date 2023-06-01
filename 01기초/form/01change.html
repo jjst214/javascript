@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span>가격</span>
+    <input type="text" id="price"/><br>
+    <span>수량</span>
+    <select name="num" id="num">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+    </select>
+    <br>
+    <span>총가격</span>
+    <input type="text" id="total">
+    <script>
+        const num = document.querySelector("#num");
+        const price = document.querySelector("#price");
+        const total = document.querySelector("#total");
+        num.addEventListener("change", function(){
+            sum();
+        });
+        price.addEventListener("input", function(){
+            sum();
+        })
+
+        function sum(){
+            let priceNumber = Number(price.value);
+            if(isNaN(priceNumber)){
+                return;
+            }else{
+                total.value = priceNumber * num.value;
+            }
+        }
+    </script>
+</body>
+</html>
