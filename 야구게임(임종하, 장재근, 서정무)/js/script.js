@@ -175,34 +175,41 @@ function turnChk(){
         ++roundtext;
         // 공수 교대시마다 종료 조건 체크
         endGameChk();
-        commands.firstElementChild.innerHTML = "공격";
-        commandBtns[0].innerHTML = "스윙!!";
-        commandBtns[1].innerHTML = "기다리기";
-        setTimeout(function(){
-            turn.style.display = "block";
-            turn.firstElementChild.innerHTML = "공격 턴 입니다.";
+        if(endGameChk() != null){
+            return;
+        }else{
+            commands.firstElementChild.innerHTML = "공격";
+            commandBtns[0].innerHTML = "스윙!!";
+            commandBtns[1].innerHTML = "기다리기";
             setTimeout(function(){
-                turn.style.display = "none";
-            }, 2000)
-            round.firstElementChild.innerHTML = `${roundtext}회초`;
-        },2000)
+                turn.style.display = "block";
+                turn.firstElementChild.innerHTML = "공격 턴 입니다.";
+                setTimeout(function(){
+                    turn.style.display = "none";
+                }, 2000);
+                round.firstElementChild.innerHTML = `${roundtext}회초`;
+            },2000);
+        }
         
     }else{
         endGameChk();
-        commands.firstElementChild.innerHTML = "수비";
-        commandBtns[0].innerHTML = "스트라이크";
-        commandBtns[1].innerHTML = "볼";
-        setTimeout(function(){
-            turn.style.display = "block";
-            turn.firstElementChild.innerHTML = "수비 턴 입니다.";
+        if(endGameChk() != null){
+            return;
+        }else{
+            commands.firstElementChild.innerHTML = "수비";
+            commandBtns[0].innerHTML = "스트라이크";
+            commandBtns[1].innerHTML = "볼";
             setTimeout(function(){
-                turn.style.display = "none";
-            }, 2000)
-            round.firstElementChild.innerHTML = `${roundtext}회말`;
-        },2000)
+                turn.style.display = "block";
+                turn.firstElementChild.innerHTML = "수비 턴 입니다.";
+                setTimeout(function(){
+                    turn.style.display = "none";
+                }, 2000);
+                round.firstElementChild.innerHTML = `${roundtext}회말`;
+            },2000);
+        }
+        
     }
-
-
 }
 /* 유저 턴 일때 공격/수비 텍스트 변환 함수 끝 */
 
@@ -410,16 +417,11 @@ function run(){
                     comScore++;
                     // 9회말 컴퓨터 마지막 공격때 유저보다 점수가 높아지면 그대로 게임 끝
                     if(roundtext == 9 && userScore<comScore){
-                        newLi("안타");
-                        newLi("게임끝");
-                        setTimeout(function(){
-                            Swal.fire({
-                                title: `게임결과 ${userScore}:${comScore}`,   // Alert 제목
-                                text: `패배했습니다ㅜㅜ.`,  // Alert 내용
-                            }); 
-                            fin();
-                        },100);
-                        return;
+                        fin();
+                        Swal.fire({
+                            title: `게임결과 ${userScore}:${comScore}`,   // Alert 제목
+                            text: `패배했습니다ㅜㅜ.`,  // Alert 내용
+                        });
                     }
                 }
             }
@@ -444,16 +446,11 @@ function plus_score(){
         comScore += sum;
         // 9회말 컴퓨터 마지막 공격때 유저보다 점수가 높아지면 그대로 게임 끝
         if(roundtext == 9 && userScore<comScore){
-            newLi("홈런");
-            newLi("게임끝");
-            setTimeout(function(){
-                Swal.fire({
-                    title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
-                    text: `패배했습니다ㅜㅜ.`,  // Alert 내용
-                }); 
-                fin();
-            },100);
-            return;
+            fin();
+            Swal.fire({
+                title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
+                text: `패배했습니다ㅜㅜ.`,  // Alert 내용
+            });
         }
     }
 }
@@ -643,40 +640,33 @@ function change(){
 function endGameChk(){
     // 9회말 진입할 때(유저공격 끝날때) 유저가 컴퓨터보다 점수가 낮으면 패배
     if(roundtext == 9 && !isUserTurn && userScore<comScore){
-        newLi("게임끝");
-        setTimeout(function(){
-            Swal.fire({
-                title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
-                text: `패배했습니다ㅜㅜ.`,  // Alert 내용
-            }); 
-            fin();
-        },100);
+        fin();
+        Swal.fire({
+            title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
+            text: `패배했습니다ㅜㅜ.`,  // Alert 내용
+        });
+        return 1;
     // 9회말까지 종료 된 후 점수가 같으면 무승부(연장x)
     }else if(roundtext == 10 && userScore==comScore){
-        newLi("게임끝");
-        setTimeout(function(){
-            Swal.fire({
-                title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
-                text: `무승부입니다.`,  // Alert 내용
-            }); 
-            fin();
-        },100);
+        fin();
+        Swal.fire({
+            title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
+            text: `무승부입니다.`,  // Alert 내용
+        });
+        return 1;
     }else if(roundtext == 10 && userScore>comScore){
-        newLi("게임끝");
-        setTimeout(function(){
-            Swal.fire({
-                title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
-                text: `승리하셨습니다!!`,  // Alert 내용
-            }); 
-            fin();    
-        },100);
+        fin();
+        Swal.fire({
+            title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
+            text: `승리하셨습니다!!`,  // Alert 내용
+        });
+        return 1;
+    }else{
+        return null;
     }
 }
 // 게임 종료(div 다시 다 사라짐)
 function fin(){
-    commandBtns.forEach(dis=>{
-        dis.disabled = "true";
-    });
     action_log.style.display = "none";
     commands.style.display = "none";
     board.style.display = "none";
