@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <script defer src="js/script.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- sweer alert 모달 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script defer src="./js/script.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -27,10 +29,10 @@
                 <div><h2 id="comScore">0</h2></div>
             </div>
             <div id="minimap">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div data-value="0"></div>
+                <div data-value="0"></div>
+                <div data-value="0"></div>
+
             </div>
             <div id="round-board">
                 <div>
@@ -51,22 +53,27 @@
         </div>
         <div id="commands">
             <h2>공격/수비</h2>
-            <button data-atk="swing" data-def="strike">커맨드1</button>
-            <button data-atk="wait" data-def="ball">커맨드2</button>
-            
+            <button>커맨드1</button>
+            <button>커맨드2</button>
         </div>
         <div id="action-log">
-            <h2>event log title</h2>
+            <h2>게임로그</h2>
             <ul id="log">
             </ul>
         </div>
     </div>
     <div id="game">
-        <div data-key="투수"></div>
-        <div data-key="1루"></div>
-        <div data-key="2루"></div>
-        <div data-key="3루"></div>
-        <div data-key="타자"></div>
+        <div id="pitcher" data-key="투수"></div>
+        <div id="bol" data-key="야구공"></div>
+        <div id="game_strike" data-key="스트라이크"></div>
+        <div id="game_ball" data-key="볼"></div>
+        <div id="game_faul" data-key="파울"></div>
+        <div id="game_strikeout" data-key="삼진아웃"></div>
+        <div id="game_fourball" data-key="볼넷"></div>
+        <div id="game_flyout" data-key="플라이아웃"></div>
+        <div id="game_groundball" data-key="땅볼아웃"></div>
+        <div id="game_Homerun" data-key="홈런"></div>
+        <div id="game_Anta" data-key="안타"></div>
     </div>
     <div id="turn">
         <h1>공격 턴 입니다</h1>
