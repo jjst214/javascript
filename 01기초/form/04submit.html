@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <p>아이디 <input type="text" name="userId" id="userId"></p>
+        <p>비밀번호 <input type="text" name="userPw" id="userPw"></p>
+        <p><button type="submit">전송</button></p>
+    </form>
+    <script>
+        let form = document.querySelector("form");
+        let idInput = document.querySelector("#userId");
+        let pwInput = document.querySelector("#userPw");
+        form.addEventListener("submit", function(e){
+            e.preventDefault(); //기본 이벤트 제거
+        });
+        
+        function formCheck(){
+            if(idInput.value.length>=5){
+
+            }else{
+                console.log("아이디를 다시 작성하세요");
+            }
+            if(pwInput.value.length>=5){
+                let pwArr = pwInput.value.split("");
+                let isNum = false;
+                pwArr.forEach(ch=>{
+                    if(!isNaN(Number(ch))){
+                        isNum = true;
+                        return;
+                    }
+                });
+                if(isNum){
+                    console.log("숫자를 포함하고 있습니다.");
+                }else{
+                    console.log("숫자를 포함하고 있지않습니다.");
+                }
+            }else{
+                console.log("비밀번호를 5자 이상 작성하세요");
+            }
+        }
+    </script>
+</body>
+</html>

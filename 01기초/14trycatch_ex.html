@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let num = prompt("양의 정수를 입력해주세요");
+        let diff, result;
+        function fib(n){
+            //n이 음수거나 nan이면 에러 발생
+            if(n<0 || isNaN(n)){
+                throw new Error("음수나 숫자가 아닌 값은 처리 할 수 없습니다.")
+            }
+            return n+10;
+        }
+        try{
+            result = fib(Number(num));
+        }catch(e){
+            result = 0;
+        }
+        console.log(result);
+    </script>
+</body>
+</html>

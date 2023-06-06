@@ -1,0 +1,5 @@
+1오브젝트를 json으로 직렬화
+JSON.stringify(obj)
+
+2json을 오브젝트로 변환
+JSON.parse(json)

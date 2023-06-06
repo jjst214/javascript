@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const xhr = new XMLHttpRequest(); //XMLHttpRequest 객체 생성
+        //http 메소드, url 정의
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1");
+        // content-type 정의
+        xhr.setRequestHeader("content-type", "application/json");
+        // 요청전송
+        xhr.send();
+        xhr.onload = () =>{
+            if(xhr.status === 200){
+                // 정상적으로 응답이 되면 상태 200번
+                const res = JSON.parse(xhr.response);
+                console.log(res);
+            }else{
+                console.error(xhr.status, xhr.statusText);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>전체 선택<input type="checkbox" name="fruits" value=""></p>
+    <p>사과<input type="checkbox" name="fruits" value="사과"></p>
+    <p>오렌지<input type="checkbox" name="fruits" value="오렌지"></p>
+    <p>바나나<input type="checkbox" name="fruits" value="바나나"></p>
+    <span><button id="resultbtn">결과보기</button></span>
+    <span><button id="all">전체선택</button></span>
+    <p id="result"></p>
+
+    <script>
+        const btn = document.querySelector("#resultbtn");
+        const allselect = document.querySelector("#all");
+        let fruits = document.querySelectorAll("input");
+        btn.addEventListener("click", function(){
+            let str = "";
+            fruits.forEach(input=>{
+                str = input.checked ? str + input.value : str;
+            });
+            document.querySelector("#result").innerHTML = str;
+        });
+        allselect.addEventListener("click", function(){
+            fruits.forEach(i=>{
+                i.checked = true;
+            })
+        });
+        fruits[0].addEventListener("change", function(){
+            if(this.checked){
+                fruits.forEach(i=>{
+                    i.checked = true;
+                })
+            }else{
+                fruits.forEach(i=>{
+                    i.checked = false;
+                })
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 다음 주소 api 추가 -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</head>
+<body>
+    <button onclick="daumPostCode()">우편번호 찾기</button>
+    <input type="text" name="address" id="address">
+    <script>
+        function daumPostCode(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                    // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                    console.log(data);
+                    document.querySelector("#address").value = data.address;
+                }
+            }).open();
+        }
+        
+    </script>
+</body>
+</html>
