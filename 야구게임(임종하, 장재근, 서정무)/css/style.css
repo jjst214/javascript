@@ -8,12 +8,15 @@ li{list-style: none;}
     left: 50%;
     top: 20%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #intro button{
     color: #fff;
     font-size: 40px;
     width: 400px;
-    height: 150px;
+    height: 120px;
     background: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     padding: 15px 0;
@@ -21,6 +24,14 @@ li{list-style: none;}
 }
 #intro button:hover{
     color: yellow;
+}
+#intro p{
+    border: 2px solid #fff;
+    border-radius: 5px;
+    margin-top: 30px;
+    color: #000;
+    font-size: 24px;
+    width: 80%;
 }
 #wrap{
     width: 100%;

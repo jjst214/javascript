@@ -19,7 +19,7 @@ let resetCount = 0;
 let strikeNum = 0;
 let ballNum = 0;
 let outNum = 0;
-let roundtext = 9;
+let roundtext = 1;
 let userScore = 0;
 let comScore = 0;
 let timer;
@@ -149,7 +149,7 @@ function newLi(eventType){
 }
 // 이벤트 로그 추가함수 끝
 
-// 게임시작 시 UI display 조작 리스너
+// 게임시작 시 UI display 최초 세팅 이벤트
 startbtn.addEventListener("click", function(){
     action_log.style.display = "block";
     commands.style.display = "flex";
@@ -166,6 +166,13 @@ startbtn.addEventListener("click", function(){
     }, 1500);
     isUserTurn = true;
     createPlayer();
+});
+document.addEventListener("keydown", e=>{
+    if(intro.style.display != "none"){
+        if(e.key == "Enter"){
+            startbtn.click();
+        }
+    }
 });
 // UI display 끝
 
