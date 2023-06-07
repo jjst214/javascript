@@ -1,0 +1,11 @@
+class Person {
+	//»ý¼ºÀÚ
+	constructor(name, age){
+		this.name=name;
+		this.age=age;
+	}
+	speak(){
+		console.log("hello");
+	}
+}
+new Person("green", 30);

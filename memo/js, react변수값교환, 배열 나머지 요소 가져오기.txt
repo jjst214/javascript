@@ -1,0 +1,41 @@
+
+변수 값 교환
+temp = guest;
+guest = admin;
+admin = temp;
+
+>> [guest, admin] = [admin, guest] 로 변경가능
+
+나머지 요소 가져오기  (...)
+let [name1, name2, ...rest] = ["a", "b", "c", "d", "e", "f", "g"];
+
+name1 = a, name2 = b, rest[] = [c,d,e,f,g] 가 들어감
+
+객체구조분해 할당
+//let {key1, key2} = {key1: "a", "key2:"b"}
+//let user = {
+//	name: "green",
+//	age: 30
+//}
+//let name = user.name;
+//let age = user.age;
+
+>>let {name, age} = user;
+
+함수에서 사용
+let dog1 = {name: "구름", age: 4, color: "흰색"}
+function dogPrint(obj){
+	let name = obj.name;
+	let age = obj.age;
+	let color = obj.color;
+	console.log("이름은 " + name);
+	console.log("나이는 " + age);
+	console.log("색상은 " + color);
+}
+
+>>function dogPrint({name, age, color}){
+	console.log("이름은 " + name);
+	console.log("나이는 " + age);
+	console.log("색상은 " + color);
+   }
+dogPrint(dog1);

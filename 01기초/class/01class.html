@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Person{
+            constructor(name, age){
+                this.name = name;
+                this.age = age;
+            }
+            speak(){
+                console.log("hello");
+            }
+        }
+        const green = new Person("그린", 28);
+        console.log(green);
+        green.speak();
+
+        // 학생클래스 생성
+        class Student{
+            constructor(name, age, score){
+                this.name = name;
+                this.age = age;
+                this.score = score;
+            }
+        }
+        const students = [
+            new Student("A",29,75),
+            new Student("B",30,65),
+            new Student("C",27,90),
+            new Student("D",25,88),
+            new Student("E",26,80)
+        ]
+        console.log(students);
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let foods = ["🍒", "🎂", "🍿", "🌭", "🍘"];
+        let [aa, bb, ...cc] = foods;
+        console.log(aa);
+        console.log(bb);
+        console.log(cc);
+        
+        let str1 = "green";
+        let str2 = "blue";
+        [str1, str2] = [str2, str1];
+        console.log(str1);
+        console.log(str2);
+
+        let user = {name:"green", age:20};
+        // let name = user.name;
+        // let age = user.age;
+        let {age, name} = user; // 구조분해할당을 사용하면 코드 한줄로 변수들에 객체 값을 넣을 수 있음(객체의 키값이 변수명이됨)
+        console.log(name);
+        console.log(age);
+        let {name: n, age: a} = user; // user객체의 name키에 해당하는 값은 변수 n에 저장하고 age키값은 변수 a에 저장됨
+        console.log("n에 담긴 값 : ", n);
+
+        // 함수에서 구조분해할당
+        let dog1 = {name:"구름", age:4, color:"흰색"};
+        function dogPrint({name, age, color}){
+            console.log("이름은 " + name);
+            console.log("나이는 " + age);
+            console.log("색상은 " + color);
+        }
+        dogPrint(dog1);
+
+        function getPerson(){
+            return{
+                firstName: "john",
+                lastName: "Doe",
+                age: 37,
+                email: "john@gmail.com"
+            }
+        }
+        let {firstName, lastName} = getPerson();
+        console.log(firstName, lastName);
+    </script>
+</body>
+</html>

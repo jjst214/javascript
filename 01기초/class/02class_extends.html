@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Animal{
+            constructor(name){
+                this.name = name;
+                this.speed = 0;
+            }
+            run(speed){
+                this.speed = speed;
+                console.log(`${this.name}은 ${this.speed}로 달립니다.`);
+            }
+        }
+        class Rabbit extends Animal{
+            constructor(name, earlength){
+                super(name);
+                this.earlength = earlength;
+            }
+            hide(){
+                console.log(`${this.name}이 숨었습니다.`);
+            }
+            // 오버라이딩
+            run(speed){
+                super.run(speed);
+                console.log("rabbit의 run호출");
+            }
+        }
+        let rabbit = new Rabbit("흰토끼", 20);
+        rabbit.run(10);
+        rabbit.hide();
+
+        // 오버라이딩
+        class Shape{
+            constructor(width, height, color){
+                this.width = width;
+                this.height = height;
+                this.color = color;
+            }
+            draw(){
+                console.log(`drawing ${this.color}`);
+            }
+            getArea(){
+                return this.width * this.height;
+            }
+        }
+        class Triangle extends Shape{
+            draw(){
+                super.draw();
+                console.log("삼각형");
+            }
+            getArea(){
+                return (this.width * this.height) / 2;
+            }
+        }
+        const triangle = new Triangle(20, 20, "red");
+        triangle.draw();
+        console.log(triangle.getArea());
+        // instanceof    a instanceof b
+        // a 오브젝트가 b클래스의 인스턴스인지 true/false
+        console.log(triangle instanceof Triangle);
+        console.log(triangle instanceof Shape);
+
+        // 정적(static) 필드, 메소드
+        class Article{
+            static publisher = "green coding";
+            constructor(articleNumber){
+                this.articleNumber = articleNumber;
+            }
+            static printPublisher(){
+                console.log(Article.publisher);
+            }
+        }
+        const article1 = new Article(1);
+        // console.log(article1.publisher);
+        // console.log(Article.publisher);
+        console.log(Article.printPublisher());
+    </script>
+</body>
+</html>
