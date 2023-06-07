@@ -19,7 +19,7 @@ let resetCount = 0;
 let strikeNum = 0;
 let ballNum = 0;
 let outNum = 0;
-let roundtext = 1;
+let roundtext = 9;
 let userScore = 0;
 let comScore = 0;
 let timer;
@@ -175,7 +175,7 @@ function turnChk(){
         ++roundtext;
         // 공수 교대시마다 종료 조건 체크
         endGameChk();
-        if(endGameChk() != null){
+        if(endGameChk()){
             return;
         }else{
             commands.firstElementChild.innerHTML = "공격";
@@ -193,7 +193,7 @@ function turnChk(){
         
     }else{
         endGameChk();
-        if(endGameChk() != null){
+        if(endGameChk()){
             return;
         }else{
             commands.firstElementChild.innerHTML = "수비";
@@ -645,7 +645,7 @@ function endGameChk(){
             title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
             text: `패배했습니다ㅜㅜ.`,  // Alert 내용
         });
-        return 1;
+        return true;
     // 9회말까지 종료 된 후 점수가 같으면 무승부(연장x)
     }else if(roundtext == 10 && userScore==comScore){
         fin();
@@ -653,16 +653,16 @@ function endGameChk(){
             title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
             text: `무승부입니다.`,  // Alert 내용
         });
-        return 1;
+        return true;
     }else if(roundtext == 10 && userScore>comScore){
         fin();
         Swal.fire({
             title: `게임결과 ${userScore}:${comScore}`,         // Alert 제목
             text: `승리하셨습니다!!`,  // Alert 내용
         });
-        return 1;
+        return true;
     }else{
-        return null;
+        return false;
     }
 }
 // 게임 종료(div 다시 다 사라짐)
