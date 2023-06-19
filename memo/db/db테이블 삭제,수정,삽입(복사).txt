@@ -1,0 +1,44 @@
+테이블삭제 (drop)
+drop table 테이블명;
+
+테이블 수정
+alter table)
+1.컬럼 추가
+alter table emp_copy
+add tel varchar2(11);
+
+2.컬럼 이름 변경
+alter table emp_copy
+rename column tel to emptel;
+2-1. 테이블 이름 변경
+rename emp_copy to emp_copyco;
+
+3.컬럼 속성 변경
+alter table emp_copy
+modify emptel varchar(20);
+
+4.컬럼 삭제
+alter table emp_copy2
+drop column emptel;
+
+테이블, 테이블 구조는 두고 데이터만 전부 삭제 (truncate)
+truncate table emp;
+
+테이블의 구조만 복사하여 새 테이블 새엇ㅇ
+create table emp_copy
+as
+select * from emp
+where = 1<>1;
+
+테이블을 만들면서 데이터 복사
+create table emp_copy
+as
+select * from emp;
+
+만들어진 빈 테이블에 데이터만 복사(컬럼수가 같을때)
+insert into emp_copy
+select * from emp;
+
+컬럼수가 다를때
+insert into emp_copy(empno, ename, job, mgr, ...) 컬럼수를 받아올 테이블 컬럼수와 맞춤
+select * from emp;

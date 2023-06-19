@@ -1,0 +1,107 @@
+선언부
+실행부
+예외처리부 로 구성
+
+declare, exception은 생략 할 수 있지만 begin(실행부)는 반드시 작성해야함
+
+declare 실행에 필요한 여러 요소 선언
+begin 작업을 위해 실제 실행하는 명령어
+exception 예외처리부
+end;
+
+변수 작성하기
+변수이름 자료형타입 := 값;
+
+상수 작성하기
+상수이름 constant 자료형타입 := 값;
+
+declare
+	--v_empno number(4) not null := null; 변수에 not null 제약조건을 걸면 null을 담을 수 없음(오류) 
+	v_empno number(4) not null := 1234;
+	v_ename varchar2(10);
+	v_color varchar2(20) default 'blue';
+	s_name constant varchar2(10) := 'aaa';
+begin
+	v_ename = 'green';
+	dbms_output.put_line('name은 : ' || v_ename || ' 이다');
+	dbms_output.put_line('컬러는 : ' || v_color);
+end;
+/
+
+테이블의 열 타입으로 변수주고 활용하기.
+declare
+    v_dept_row dept%rowtype;
+begin
+    select deptno, dname, loc into v_dept_row  <<into v_dept_row 하면 셀렉트문 결과값을 변수에 담음(타입이 같아야함)
+    from dept
+    where deptno = 10;
+    
+    dbms_output.put_line('deptno : ' || v_dept_row.deptno);
+    dbms_output.put_line('dname : ' || v_dept_row.dname);
+    dbms_output.put_line('loc : ' || v_dept_row.loc);
+end;
+
+
+조건식 사용하기
+if 조건식 then
+	수행할 명령어;
+elsif 조건식 then
+	수행할 명령어;
+else
+	수행할 명령어;
+end if;
+
+case 조건문 사용하기
+begin
+	case 조건식
+		when 조건식(case에 안썼을경우) or case조건결과1 then 수행할 명령어;
+		when 조건식(case에 안썼을경우) or case조건결과2 then 수행할 명령어;
+		when 조건식(case에 안썼을경우) or case조건결과3 then 수행할 명령어;
+		else 수행할 명령어;
+	end case;
+end;
+
+
+반복문 사용하기
+1) loop 반복문
+loop
+	반복수행할 작업;
+	exit when 반복종료조건
+end loop;
+
+loop
+	반복수행할 작업;
+	if 반복종료조건 then
+		exit;
+	end if;
+end loop;
+
+2)while 반복문
+while 조건식 loop
+	반복수행할 작업;
+end loop;
+
+3)for 반복문(반복할 횟수가 정해져있을때)
+for i in 시작값 .. 종료값 loop
+	반복수행할 작업;
+end loop;
+
+3-1) 반대로 출력하는 반복문(reverse)
+begin
+    for i in reverse 0..4 loop
+        dbms_output.put_line(i);
+    end loop;
+end;
+
+ex)
+for i in 0..4 loop
+	dbms_output.put_line(i);
+end loop;
+
+반복문 한번 건너뛰기(continue)
+begin
+    for i in 0..4 loop
+        continue when mod(i,2) = 0; // i를 2로 나눴을때 0이면(짝수면) 건너뜀
+        dbms_output.put_line(i);
+    end loop;
+end;

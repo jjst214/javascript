@@ -10,7 +10,6 @@ const logUl = document.querySelector("#log");
 const lis = document.querySelectorAll("#log li");
 const round = document.querySelector("#round");
 const juja = document.querySelectorAll("#minimap div");
-const div = document.querySelectorAll("div");
 let strikescore = document.querySelector("#strike strong");
 let ballscore = document.querySelector("#ball strong");
 let outscore = document.querySelector("#out>p");
@@ -130,15 +129,12 @@ function newLi(eventType){
         case "쓰리아웃":
             createTxt = document.createTextNode("쓰리아웃 체인지~!");
             break;
-        case "게임끝":
-            createTxt = document.createTextNode("게임 종료!!");
-            break;
-        }
-        
+    }
+
     createLi.append(createTxt);
     function maxLengthChk(){
         let num = logUl.childElementCount;
-        if(num>=8){
+        if(num>=10){
             logUl.lastElementChild.remove();
             logUl.prepend(createLi);
         }else{
@@ -167,6 +163,7 @@ startbtn.addEventListener("click", function(){
     isUserTurn = true;
     createPlayer();
 });
+// Enter 키 입력시에도 시작
 document.addEventListener("keydown", e=>{
     if(intro.style.display != "none"){
         if(e.key == "Enter"){
@@ -193,9 +190,9 @@ function turnChk(){
                 turn.firstElementChild.innerHTML = "공격 턴 입니다.";
                 setTimeout(function(){
                     turn.style.display = "none";
-                }, 2000);
+                }, 1500);
                 round.firstElementChild.innerHTML = `${roundtext}회초`;
-            },2000);
+            },1500);
         }
         
     }else{
@@ -211,9 +208,9 @@ function turnChk(){
                 turn.firstElementChild.innerHTML = "수비 턴 입니다.";
                 setTimeout(function(){
                     turn.style.display = "none";
-                }, 2000);
+                }, 1500);
                 round.firstElementChild.innerHTML = `${roundtext}회말`;
-            },2000);
+            },1500);
         }
         
     }
@@ -232,7 +229,7 @@ commandBtns[0].addEventListener("click",function(){
         commandBtns.forEach(dis=>{
             dis.disabled = "";
         });
-    },1500);
+    },2000);
     
     bolthrow();
     
@@ -252,7 +249,6 @@ commandBtns[0].addEventListener("click",function(){
             }else{
                 hitresult<0.8 ? (newLi("안타")) : (newLi("헛스윙"));
             }
-            boardRefresh();
         }else{
             if(hitresult<0.05){
                 newLi("홈런");
@@ -265,7 +261,6 @@ commandBtns[0].addEventListener("click",function(){
                 hitresult<0.85 ? (newLi("안타")) : (newLi("헛스윙"));
             }
         }
-        boardRefresh();
     }else { // 컴퓨터 공격 턴 이벤트
         let comAction = balltype;
         let hitresult = Math.random();
@@ -281,11 +276,11 @@ commandBtns[0].addEventListener("click",function(){
             }else{
                 hitresult<0.8 ? (newLi("안타")) : (newLi("헛스윙"));
             }
-            boardRefresh();
         }else{
             newLi("스트라이크");
         }
     }
+    boardRefresh();
 });
 commandBtns[1].addEventListener("click",function(){
     commandBtns.forEach(dis=>{
@@ -296,7 +291,6 @@ commandBtns[1].addEventListener("click",function(){
             dis.disabled = "";
         });
     },1500);
-
 
     bolthrow();
     
@@ -324,7 +318,6 @@ commandBtns[1].addEventListener("click",function(){
     } 
 });
 
-
 function strikeCount(){
     strikeNum += 1;
     strikescore.innerHTML = strikeNum;
@@ -347,7 +340,6 @@ function faulcount(){
     }else{
         strikeCount();
     }
-    
 }
 function ballCount(){
     ballNum += 1;
@@ -388,6 +380,7 @@ function outCountReset(){
     outNum = resetCount;
 }
 
+// 안타 상황. 주자 진루 및 미니맵 업데이트 함수(득점상황에서의 게임종료 조건 check)
 function run(){
     let players = document.querySelectorAll("#hitter");
 
@@ -444,6 +437,8 @@ function minimap_clear(){
     second_status(0);
     third_status(0);
 }
+// 홈런상황. 미니맵 dataset-value값으로 주자체크-> 주자수+타자 만큼 스코어+
+// 득점상황에서의 게임 종료조건 check
 function plus_score(){
     let sum = 1;
     sum = sum + Number(first_stat) + Number(second_stat) + Number(third_stat);
@@ -471,7 +466,7 @@ function createPlayer(){
     newPlayer.style.left = "34%";
     newPlayer.style.width = "65px";
     newPlayer.style.height = "73px";
-    newPlayer.style.transition = "0.3s";
+    newPlayer.style.transition = "1s";
     newPlayer.style.backgroundSize = "contain";
     newPlayer.style.backgroundRepeat = "no-repeat";
     if(isUserTurn){
@@ -575,14 +570,22 @@ function groundballEffect() {
         gameGroundball.style.opacity = '0';
     }, 1000);
 }
+// 안타 이펙트
+function antaEffect() {
+    gameAnta.style.opacity = '1';    
+    setTimeout(function() {
+        gameAnta.style.opacity = '0';
+    }, 1500);
+}
 // 홈런 이펙트 & 필드 클리어 함수
 function homerunEffect() {
     gameHomerun.style.opacity = '1';    
     setTimeout(function() {
         gameHomerun.style.opacity = '0';
-    }, 2500);
+    }, 3500);
 
     timer = setInterval(() => {
+        
         document.querySelectorAll("#hitter").forEach(p=>{
             if(p.style.top=="70%"&& p.style.left =="34%"){
                 hitter1move(p);
@@ -594,39 +597,22 @@ function homerunEffect() {
                 hitter4move(p);
             }
         });
-    }, 200);
-    // 홈런 후 필드에 hitter div 체크 후 다 홈으로 들어왔으면 잉여 div 삭제 후 다음 타자 생성
+    }, 800);
+    // 홈런 후 필드에 hitter div 체크 후 존재하는 hitter가 없을 시 타이머 멈추고 다음 타자 생성
     setTimeout(function(){
         if(document.querySelectorAll("#hitter").length == 0){
             clearInterval(timer);
         }
         createPlayer();
-        commandBtns.forEach(cmd=>{
-            cmd.disabled = ""; 
-        });
-    }, 1500);
-}
-// 안타 이펙트
-function antaEffect() {
-    gameAnta.style.opacity = '1';    
-    setTimeout(function() {
-        gameAnta.style.opacity = '0';
-    }, 1500);
+    }, 4500);
 }
 /* ---------------이펙트 끝--------------- */
 
 // 공수교대 유니폼 색상변경 및 이미 진출한 주자 엘리먼트 초기화 함수
 function change(){
     let players = document.querySelectorAll("#hitter");
-    function colorChange() {
-        players.forEach(clear=>{
-            clear.remove();
-            createPlayer();
-            clear.style.backgroundImage = "url('images/taja2.png')";
-        });
-        pitcher.style.backgroundImage = "url('images/pitcher2.png')";
-    }
-    function colorChange2() {
+
+    if(isUserTurn){
         players.forEach(clear=>{
             clear.remove();
             createPlayer();
@@ -634,11 +620,13 @@ function change(){
         });
         pitcher.style.backgroundImage = "url('images/pitcher.png')";
     }
-    if(isUserTurn){
-        colorChange2();
-    }
     else{
-        colorChange();
+        players.forEach(clear=>{
+            clear.remove();
+            createPlayer();
+            clear.style.backgroundImage = "url('images/taja2.png')";
+        });
+        pitcher.style.backgroundImage = "url('images/pitcher2.png')";
     }
 }
 

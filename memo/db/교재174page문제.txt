@@ -1,0 +1,28 @@
+1번
+SELECT empno, rpad(substr(empno,1,2),4,'*') as masking_empno,
+ename, rpad(substr(ename,1,1),length(ename),'*') as masking_ename
+from emp
+where length(ename) >= 5 and length(ename) < 6;
+
+2번
+select empno, ename, sal,
+trunc(sal/21.5, 2) as day_pay,
+round(sal/21.5/8, 1) as time_pay from emp;
+
+3번
+select empno, ename, to_char(hiredate, 'yyyy/mm/dd') as hiredate,
+to_char(next_day(add_months(hiredate,3),'월요일'), 'yyyy-mm-dd') as r_job,
+nvl(to_char(comm), 'N/A') as comm from emp;
+
+4번
+select empno, ename, mgr,
+case
+when mgr is null then '0000'
+when substr(mgr,1,2) = '78' then '8888'
+when substr(mgr,1,2) = '77' then '7777'
+when substr(mgr,1,2) = '76' then '6666'
+when substr(mgr,1,2) = '75' then '5555'
+else to_char(mgr)
+end as chg_mgr from emp;
+
+decode(mgr, 75,5555, 76, 6666, 77, 7777, 78, 8888, null, 0000, mgr) as chg_mgr from emp;

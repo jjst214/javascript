@@ -1,0 +1,57 @@
+서브쿼리
+sql문을 실행하는데 필요한 데이터를 추가로 조회하기 위해 sql문 내부에서
+사용하는 select 문을 의미함
+1.서브쿼리는 연산자와 같은 비교 또는 조회 대상의 오른쪽에 놓이며
+()로 묶어서 사용함.
+2.서브쿼리의 select절에 명시한 열은 메인쿼리의 비교 대상과 같은 자료형과
+같은 개수로 지정해야한다
+
+
+사원중 ward의 급여보다 더 높은 사원이름, 사원번호
+급여, 직책을 출력
+
+select ename, empno, sal, job
+from emp
+where sal > (select sal from emp where ename='WARD');
+
+2.단일행 서브쿼리
+실행결과가 단 하나의 행으로 나오는 서브쿼리
+출력되는 결과가 하나이므로 메인쿼리와 서브쿼리 결과는 단일행 연산자를 사용하여 비교
+단일행 연산자 >, >=, <, ....
+
+scott보다 일찍 입사한 사원목록
+select * from emp
+where hiredate < (select hiredate from emp where ename = 'SCOTT');
+
+20번 부서에 속한 사원중 전체 사원의 평균 급여보다높은 급여를 받는
+사원 정보, 소속 부서 정보를 조회
+
+>select e.empno, e.ename, e.job, e.sal, d.deptno, d.dname, d.loc
+from emp e join dept d on(e.deptno = d.deptno)
+where e.deptno = 20
+and e.sal > (select avg(sal) from emp);
+
+3.다중행 서브쿼리
+실행결과 행이 여러 개가 나오는 서브쿼리
+메인쿼리와 비교시 단일행 연산자를 사용할 수 없고
+다중행 연산자를 사용해야함
+
+in연산자
+메인쿼리 데이터가 서브쿼리의 결과중 하나라도 일치하는 데이터가 있다면 true
+any, some 연산자
+메인쿼리의 조건식을 만족하는 서브쿼리의 결과가 하나 이상이면 true
+all연산자
+메인쿼리 조건식을 서브쿼리의 결과가 모두 만족하면 true
+exists연산자
+서브쿼리의 결과가 존재하면 true
+
+select * from emp
+where job in('MANAGER', 'SALESMAN');
+
+select * from emp
+where deptno in(10,20);
+
+각 부서별 최고 급여와 동일한 급여를 받는 사원 정보 출력하기(행이 3개 나와야함)
+select * from emp
+where sal in(select max(sal) from emp
+group by deptno);

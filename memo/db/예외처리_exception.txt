@@ -1,0 +1,27 @@
+예외처리
+
+ex1)
+declare
+    v_number number;
+begin
+    select dname into v_number
+    from dept where deptno = 40;
+exception
+    when value_error then --value_error 말고도 많은 종류의 에러가 있음(찾아봐야함!!)
+    dbms_output.put_line('예외처리: 수치 오류값 오류 발생');
+end;
+
+ex2)
+declare
+    v_wrong number;
+begin
+    select dname into v_wrong from dept where deptno = 10;
+    dbms_output.put_line('예외가 발생되면 다음 문장은 실행되지 않음');
+exception
+    when too_many_rows then
+    dbms_output.put_line('요구보다 많은 행 추출 오류');
+    when value_error then
+    dbms_output.put_line('수치 또는 값 오류 발생');
+    when others then --위에 정의한 오류 외 모든 오류에는 아래 실행문이 실행됨
+    dbms_output.put_line('사전정의 외 오류 발생');
+end;

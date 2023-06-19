@@ -1,0 +1,25 @@
+1.from 절에서 사용하는 서브쿼리와 with절
+from 절에서 사용하는 서브쿼리는 '인라인 뷰' 라고도 부름
+
+1-1.인라인뷰 사용하기
+select e10.empno, e10.deptno, d.dname, d.loc
+from (select * from emp where deptno=10) e10,
+(select * from dept) d
+where e10.deptno = d.deptno;
+
+1-2.with절 사용하기
+with
+e10 as (select * from emp where deptno=10),
+d as (select * from dept where deptno = 10)
+select e10.empno, e10.ename, d.loc, d.dname
+from e10, d;
+
+2.select 절에서 사용하는 서브쿼리
+select에서 사용하는 서브쿼리는 '스칼라 서브쿼리' 라고 부름
+
+select empno, job, sal,
+(select grade from salgrade
+where e.sal between s.losal and s.hisal) as salgrade,
+deptno,
+(select dname from dept where e.deptno = deptno) as dname
+from emp e;

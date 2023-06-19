@@ -1,0 +1,30 @@
+사용자 권한 부여(관리자계정에서)
+
+사용자 생성
+create user 사용자명
+identified by 비밀번호;
+
+사용자 아이디 로그인 권한 부여
+grant create session to 사용자명
+
+사용자 정보 수정
+alter user 사용자명
+identified by 비밀번호
+=특정 사용자의 비밀번호를 변경하는 query
+
+테이블생성 관련 모든 권한부여
+grant create table, resource to 사용자명;
+
+권한 삭제(revoke)
+revoke create table, resource from green;
+
+객체권한(테이블,인덱스,뷰,시퀀스 등 과 관련된 권한, select나 insert작업이 가능하도록 설정)
+
+1.grant select on temp to green; //green 사용자에게 temp라는 테이블에 select 할 수 있는 권한을 부여
+2.grant insert on temp to green; //green 사용자에게 temp라는 테이블에 insert 할 수 있는 권한을 부여
+
+
+roll 권한부여모음
+create role rolestudy;
+grant connect, resource, create view, create synonym to rolestudy;
+grant rolestudy to 사용자명

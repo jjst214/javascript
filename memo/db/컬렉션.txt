@@ -1,0 +1,70 @@
+컬렉션
+특정 자료형의 데이터를 여러개 저장하는 복합 자료형
+
+종류: 연관배열, 중첩테이블, varray
+
+1.연관배열(많이씀)
+type 배열명 is table of 자료형
+index by 인덱스형 키로사용할인덱스의자료형 binary_integer, pls_integer같은 정수 또는 varchar2
+
+ex)
+declare
+    -- 컬렉션 타입 생성(클래스같은거, 사용하려면 변수에 담아줘야함)
+    type itab_ex is table of varchar2(20)
+    index by pls_integer;   --정수타입의 인덱스 지정
+    --변수선언
+    text_arr itab_ex;
+begin
+    text_arr(1) := '1st data';
+    text_arr(2) := '2st data';
+    text_arr(3) := '3st data';
+    text_arr(4) := '4st data';
+    dbms_output.put_line('첫번째 값은 : ' || text_arr(1));
+end;
+/
+
+ex2) 레코드와 함께 사용
+declare
+    --레코드 타입 생성
+    type rec_dept is record(
+        deptno dept.deptno%type,
+        dname dept.dname%type
+    );
+    --컬렉션 타입 생성
+    type itab_dept is table of rec_dept
+    index by pls_integer;
+
+    --컬렉션 타입 변수 생성
+    dept_arr itab_dept;
+    --pls_integer 타입 변수 생성
+    idx pls_integer := 0;
+begin
+    for i in (select deptno, dname from dept) loop
+        idx := idx + 1;
+        dept_arr(idx).deptno := i.deptno;
+        dept_arr(idx).dname := i.dname;
+        dbms_output.put_line(dept_arr(idx).deptno
+        || ' : ' || dept_arr(idx).dname);
+    end loop;
+end;
+
+ex) 테이블의 row 타입 지정
+declare
+    --컬렉션 타입 생성
+    type itab_dept is table of dept%rowtype --dept테이블의 행타입 지정
+    index by pls_integer;
+    dept_arr itab_dept;
+    idx pls_integer := 0;
+begin
+    for i in (select * from dept) loop
+        idx := idx + 1;
+        dept_arr(idx).deptno := i.deptno;
+        dept_arr(idx).dname := i.dname;
+        dept_arr(idx).loc := i.loc;
+        dbms_output.put_line(
+            dept_arr(idx).deptno || ' : ' ||
+            dept_arr(idx).dname || ' : ' ||
+            dept_arr(idx).loc
+        );
+    end loop;
+end;

@@ -1,0 +1,22 @@
+
+1.round(숫자(필수), 반올림위치(선택)) 반올림값 반환 위치를 지정 안하면 첫째자리에서 반올림함
+>> select round(1234.5678) as round,
+  2  round(1234.5678,0) as round0,
+  3  round(1234.5678,1) as round1,
+  4  round(1234.5678,2) as round2,
+  5  round(1234.5678,-1) as roundminus1,
+  6  round(1234.5678,-2) as roundminus2
+  7  from dual;
+     ROUND    ROUND0     ROUND1     ROUND2 ROUNDMINUS1 ROUNDMINUS2
+    ---------- ---------- ---------- ---------- ----------- -----------
+      1235       1235     	1234.6    	    1234.57      1230           1200
+2.trunc(숫자(필수), 버림위치(선택)) 버림값 반환
+3.ceil / floor : ceil(3.14)=4 : floor(3.14)=3  입력한 수에서 가까운 큰 정수반환:입력한 수에서 가까운 작은 정수반환
+4.mod(나눗셈 될 숫자, 나눌 숫자) 나머지 반환 함수
+
+특정 컬럼의 null 갯수를 카운트하는법
+select count(*)-count(null갯수 받을 컬럼) from table;
+
+count(*) = 테이블의 행 갯수를 카운트(null 포함)
+count(column) = null값을 포함하지 않은 행 갯수 카운트
+>>모든 행 갯수에서 값이 있는 행만 빼주면 null 행만 카운팅됨

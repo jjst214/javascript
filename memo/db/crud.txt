@@ -1,0 +1,40 @@
+1.insert
+insert into table(column, ...)
+values(column, ...);
+
+insert 다른테이블과 서브쿼리 사용하여 여러 데이터 추가하기
+
+*salgrade가 1인 사원들 데이터를 전부 넣음
+insert into emp_temp(empno, ename, job, mgr, hiredate, sal, comm, deptno)
+select e.empno, e.ename, e.job, e.mgr, e.hiredate, e.sal, e.comm, e.deptno
+from emp e join salgrade s on(e.sal between s.losal and s.hisal)
+where s.grade = 1;
+
+2.update
+update table
+set column = data, column2 = data ...
+where 조건; <<조건은 선택, 컬럼 데이터를 전부 바꾸고 싶으면 조건 안주면 됨
+
+*수정데이터를 수정하기 전(최근 commit까지)으로 되돌리기(ROLLBACK;)
+*수정한 데이터 저장(commit;)
+
+여러 컬럼 한번에 수정하기
+ex1)
+update dept_temp
+set dname = 'GREEN', loc = 'BUSAN'
+where deptno = 40;
+
+ex2)
+update dept_temp
+set (dname, loc) = (select dname, loc from dept where deptno = 10)
+where deptno = 40;
+
+
+3.delete
+delete from table
+where 조건
+
+ex) emp_temp 테이블에서 부서번호가 30번이고 급여등급이 3인 레코드를 삭제하시오
+delete from emp_temp
+where empno in (select e.empno from emp_temp e join salgrade s
+on(e.sal between s.losal and s.hisal)where deptno = 30 and s.grade = 3);

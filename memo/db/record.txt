@@ -1,0 +1,26 @@
+레코드
+자료형이 다른 여러 데이터를 저장하는 레코드
+레코드는 자료형이 각기 다른 데이터를 하나의 변수에 저장하는데 사용함.
+
+type 레코드명 is record(
+	변수이름 자료형 제약조건(ex.not null) := 값 or defalut 값;
+)
+
+레코드를 사용하면 insert나 update같은 작업들을 할 수 있음
+
+declare
+    type rec_dept is record(
+        deptno number(2) not null := 99,
+        dname dept.dname%type,
+        loc dept.loc%type
+    );
+    dept_rec rec_dept;	--dept_rec 이 레코드 변수명
+begin
+    dept_rec.dname := 'DATABASE';
+    dept_rec.loc := 'seoul';
+    dept_rec.deptno := 99;
+    update dept_record
+    set row = dept_rec
+    where deptno = 30;
+end;
+/

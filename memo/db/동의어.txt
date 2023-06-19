@@ -1,0 +1,15 @@
+테이블, 뷰, 시퀀스 등 객체 이름 대신 다른 이름을 부여하는 객체
+db에서 동의어 생성 권한을 부여해줘야함
+grant create synonym to scott;
+grant create public synonym to scott;
+
+1생성
+create public(공개범위 설정가능, 생략가능) synonym 동의어이름
+for 객체이름(테이블이면 테이블명, 뷰면 뷰이름)
+
+ex) create synonym E
+    for emp;
+>> select * from E;
+
+2삭제
+drop synonym 동의어이름

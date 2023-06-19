@@ -1,0 +1,56 @@
+시간 속성
+hh24 : 24시간으로 표현
+mi : 분
+ss : 초
+am,pm : 오전오후
+
+1.sysdate 현재 날짜와 시간을 보여줌
+select sysdate-1 from daul >> 어제 날짜를 보여줌
+2.add_months(날짜데이터, 더할 개월 수(정수))
+3.months_between(날짜데이터1, 날짜데이터2) 두 날짜간의 개월수 차를 반환
+
+4.next_day(날짜, 요일문자) 돌아오는 요일에 해당하는 날짜데이터 반환
+next_day(sysdate, '금요일') >> 돌아오는 금요일 날짜를 반환
+5.last_day(날짜) 달의 마지막 날짜를 반환
+6.round(), trunc() 날짜데이터의 반올림, 버림처리
+>>select sysdate,
+  2  round(sysdate, 'CC') as format_CC,
+  3  round(sysdate,'YYYY') as format_yyyy,
+  4  round(sysdate, 'Q') as format_Q,
+  5  round(sysdate, 'DDD') as format_DDD,
+  6  round(sysdate, 'HH') as format_HH from dual;
+
+SYSDATE  FORMAT_C FORMAT_Y FORMAT_Q FORMAT_D FORMAT_H
+-------- -------- -------- -------- -------- --------
+23/06/09 01/01/01 23/01/01 23/07/01 23/06/09 23/06/09
+
+자료형변환 함수
+1.to_char(날짜데이터, 문자형태) 숫자 또는 날짜데이터를 문자데이터로 변환
+select to_char(sysdate, 'yyyy') as year,
+  2  to_char(sysdate, 'mm') as month,
+  3  to_char(sysdate, 'mon') as mon,
+  4  to_char(sysdate, 'dd') as dd,
+  5  to_char(sysdate, 'dy') as dy,
+  6  to_char(sysdate, 'day') as day from dual;
+
+YEAR                 MONT MON          DD  DY       DAY
+-------------------- ---- ---------------- ---- -------- ------------------------
+2023/06/23           06     6월             09   금       금요일
+
+
+select sysdate, to_char(sysdate, 'mm') as mm,
+to_char(sysdate, 'mon', 'nls_date_language = korean') as mon_kor,
+to_char(sysdate, 'mon', 'nls_date_language = japanese') as mon_jpn,
+to_char(sysdate, 'mon', 'nls_date_language = english') as mon_eng
+from dual;
+
+2.to_number(문자열데이터, 인식될숫자형태)
+9:숫자의 한자리(빈자리 채우지 않음)
+0:빈자리를 0으로 채움
+$:달러표시붙임
+L:원화(\)표시붙임
+
+3.to_date(문자열데이터, 인식될 날짜형태)
+select to_date('2022-02-05', 'yyyy-mm-dd') as todate1,
+to_date('20230315', 'yyyy-mm-dd') as todate2
+from dual;

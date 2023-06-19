@@ -222,10 +222,10 @@ li{list-style: none;}
 }
 #action-log>ul li{
     width: 100%;
-    height: 26px;
-    line-height: 26px;
-    font-size: 20px;
-    margin: 2px 0;
+    height: 23px;
+    line-height: 23px;
+    font-size: 17px;
+    margin: 1px 0;
     font-weight: bold;
     border-bottom: 1px solid #aaa;
 }

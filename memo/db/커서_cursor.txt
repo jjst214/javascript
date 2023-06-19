@@ -1,0 +1,58 @@
+1.cursor
+declare
+	cursor 커서이름 is sql문;
+begin
+	open 커서이름;
+	fetch 커서이름 into 변수
+	close 커서이름;
+end;
+
+ex)
+declare
+    v_dept_row dept%rowtype;
+    cursor c2 is
+    select * from dept;
+begin
+    open c2;
+    loop
+        fetch c2 into v_dept_row;
+        exit when c2%notfound;
+        dbms_output.put_line(v_dept_row.dname);
+    end loop;
+    close c2;
+end;
+/
+
+2.여러 행이 조회되는 경우 for loop - 자동 open, fetch, close 됨.
+for 루프index이름 in 커서이름 loop
+	결과 행 별로 반복 수행할 작업;
+end loop
+
+ex) 위의 예시를 for loop로 사용하면
+for v_dept_row in c2 loop
+    dbms_output.put_line(v_dept_row.dname);
+end loop;
+
+3.커서에 파라미터 사용하기
+cursor 커서이름(파라미터명 자료형) is sql문;
+
+ex)
+declare
+    v_dept_row dept%rowtype;
+    cursor c3(p_deptno dept.deptno%type) is
+    select * from dept where deptno = p_deptno;
+begin
+    open c3(10);
+    fetch c3 into v_dept_row;
+    dbms_output.put_line(v_dept_row.deptno || '번 부서, 부서 이름 : ' || v_dept_row.dname);
+    close c3;
+end;
+
+4.묵시적 커서
+sql%notfound 묵시적 커서안에 추출한 행이 있으면 false 없으면 true반환
+
+sql%found 묵시적 커서안에 추출한 행이 있으면 true 없으면 false반환
+
+sql%isopen 묵시적 커서는 자동으로 close됨. sql문 실행 후 close되므로 이속성은 항상 false 반환
+
+sql%rowcount 묵시적 커서에 현재까지 추출한 행 수 또는 dml명령어로 영향받는 행 수를 반환

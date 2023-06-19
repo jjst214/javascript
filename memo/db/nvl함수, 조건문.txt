@@ -1,0 +1,32 @@
+1.nvl(컬럼, 컬럼속성과맞는 넣을 값)
+값이 null일때 값을 넣어 줄 수 있음(comm이 number타입이라 문자는 넣을수없다)
+nvl(comm, 0)
+
+2.nvl2(컬럼, null이 아닐경우 반환값, null일 경우 반환값)
+nvl2(comm, 'a', 'b')
+
+조건 함수
+1.decode(컬럼, 조건1, 데이터가 조건1과 일치시 반환 결과, 조건2, 조건2와 일치시 반환 결과,
+else 인자들 반환결과)
+select empno, ename, job, sal,
+decode(job, 'MANAGER', sal*1.1, 'SALESMAN', sal*1.05, 'ANALYST', sal, sal*1.03) as upsal
+from emp;
+
+2.case when-then else end
+2-1.select empno, ename, job, sal,
+    case job
+    when 'MANAGER' then sal*1.1
+    when 'SALESMAN' then sal*1.05
+    when 'ANALYST' then sal
+    else sal*1.03
+    end as upsal from emp;
+
+2-2.select empno, ename, mgr,
+    case
+    when mgr is null then '0000'
+    when substr(mgr,1,2) = '78' then '8888'
+    when substr(mgr,1,2) = '77' then '7777'
+    when substr(mgr,1,2) = '76' then '6666'
+    when substr(mgr,1,2) = '75' then '5555'
+    else to_char(mgr)
+    end as chg_mgr from emp;

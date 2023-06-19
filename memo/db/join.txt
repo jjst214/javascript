@@ -1,0 +1,92 @@
+조인종류
+1.등가조인(내부조인, 단순조인, 심플조인 등등으로 불림)
+테이블을 연결한 후 출력 행을 각 테이블의 특정 열에 일치한 데이터를 기준으로 선정하는 방식
+
+2.비등가조인
+등가조인 외의 방식을 의미함
+특정열에 일치 여부가 아닌 다른 방식을 사용하여 조인에 적용
+
+ex)급여 범위를 지정하는 조건식으로 조인하기
+select * from emp e, salgrade s
+where e.sal between s.losal and s.hisal;
+
+3.자체조인
+하나의 테이블을 여러 개의 테이블처럼 활용하여 조인하는 방식
+
+*테이블을 복사하여 조인하기
+select * from emp e, copy_emp c
+where e.mgr = c.empno;
+
+*같은 테이블을 두번 사용해서 조인하기
+select e.empno, e.ename, e.mgr, c.empno as mgr_no,
+c.ename as mgr_name
+from emp e, emp c
+where e.mgr = c.empno;
+
+4)외부조인
+두 테이블 간 조인 수행에서 조인 기준 열의 어느 한쪽이 null이여도 강제로 출력하는 방식의 조인
+외부 조인은 좌우를 나누어 지정하는데
+where 절에서 조인 기준 열 중 한쪽에 (+)기호를 붙임
+
+외부조인의 목적 : 조인 기준 열의 null을 처리하는 것
+
+*왼쪽 외부 조인(left outer join)
+where table1.col1 = table3.col2(+)
+*오른쪽 외부 조인(right outer join)
+where table1.col1(+) = table3.col2
+
+ex)왼쪽외부조인 예시
+select e1.empno, e1.ename, e1.mgr,
+e2.empno, as mgr_empno, e2.ename as mgr_ename
+from emp e1, emp e2
+where e1.mgr = e2.empno(+)
+order by e1.empno;
+
+
+SQL-99 표준 문법
+1.natural join
+등가조인 대신 사용
+>>
+select 열이름
+from table1 별칭 natural join table2 별칭
+
+ex) select e.empno, e.ename, e.job, deptno,
+d.dname, d.loc
+from emp e natural join dept d;
+
+2.join ~ using(조인에 사용할 기준열)
+등가 조인을 대신하는 조인방식
+*****조인 기준열로 명시된 열은 select 에서 테이블 이름을 붙이지않음!!*****
+>>
+select 열이름
+from table1 join table2 using(기준열)
+
+ex) select e.empno, e.ename, e.job, deptno,
+d.dname, d.loc
+from emp e join dept d using(deptno)
+
+3.join~on (가장자주쓰임)
+조인 기준 조건식을 on에 명시
+>>
+from table1 join table2 on (조인 조건식)
+
+ex) select e.empno, e.job, e.ename, e.deptno, d.dname, d.loc
+from emp e join dept d on (e.deptno = d.deptno);
+
+4.outer join
+from 절에서 외부 조인을 선언해줌
+왼쪽 외부 조인(왼쪽 테이블의 null값 포함 모든 값을 출력 해주고 싶을때)
+where table1.col = table2.col(+) << 이전 방식
+> from table1 left outer join table2 on(조인 조건식)
+
+오른쪽 외부 조인
+from table1 right outer join table2 on(조인 조건식)
+
+select e1.empno, e1.mgr,
+e2.empno as mgr_empno,
+e2.ename as mgr_name
+from emp e1 left outer join emp e2 on(e1.mgr = e2.empno);
+
+*****3개이상의 테이블을 join 할때*****
+from table1 join table2 on(조건식)
+join table3 on(조건식)

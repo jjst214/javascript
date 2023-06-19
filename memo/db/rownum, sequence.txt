@@ -1,0 +1,48 @@
+인라인뷰 객체
+1.rownum
+인라인뷰와 rownum을 사용하면 order by절을 통해 정렬된 결과 중 최상위 몇개 데이터만 출력가능
+>> select rownum, e.* from (select * from emp e order by sal desc) e
+where rownum < 6;
+
+with 사용
+>>with
+e as (select * from emp e order by sal desc)
+select rownum, e.* from e
+where rownum < 6;
+
+2.시퀀스 sequence
+규칙에따라 연속된 순번을 생성하는 시퀀스
+create sequence 시퀀스이름
+increment by n	시퀀스에서 생성할 번호의 증가값(기본값1)
+start with n	시퀀스에서 생성할 번호의 시작값(기본값1)
+maxvalue n	시퀀스에서 생성할 번호의 최대값
+minvalue n	시퀀스에서 생성할 번호의 최소값
+cycle | nocycle	시퀀스에서 생성할 번호가 최소값/최대값에 도달했을때 다시 시작할지 결정
+cache		시퀀스가 생성할 번호를 메모리에 미리 할당해놓을 수를 지정(크게 중요하진 않음)
+예시)
+create sequence seq_dept_sequence
+increment by 10
+start with 10
+maxvalue 90
+minvalue 0
+nocycle
+cache 2;
+
+*생성한 시퀀스 확인
+select * from user_sequences;
+
+***시퀀스 사용하기***
+시퀀스이름.currval , 시퀀스이름.nextval
+
+시퀀스 수정하기
+alter sequence 시퀀스이름
+옵션 작성...
+
+예시)
+alter sequence seq_dept_sequence
+increment by 3
+maxvalue 99
+cycle;
+
+시퀀스 삭제
+drop sequence 시퀀스이름
