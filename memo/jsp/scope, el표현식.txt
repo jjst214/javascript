@@ -1,0 +1,92 @@
+pageScope	:pageContext 기본객체에 저장된 속성의 <속성,값>
+		매핑을 저장한 Map객체이다.
+requestScope	:request기본 객체에 저장된 속성의 <속성,값> 매핑을
+		저장한 Map객체이다.
+sessionScope	:session기본 객체에 저장된 속성의 <속성,값>매핑을 저장한 Map객체
+
+applicationScope	:이하동문
+
+param		:요청 파라미터의 <파라미터이름, 값> 매핑을 저장한 Map객체이다.
+
+
+* 기존의 요청 매개변수
+<%
+	String id=request.getParameter("id");
+	String pw=request.getParameter("pw");
+	String name=request.getParameter("name");
+%>
+
+<%=id%>
+<%=pw%>
+<%=name%>
+
+* el 내장객체를 이용한 매개변수
+${param.id}
+${param.name}
+${param.pw}
+
+* el 데이터타입
+boolean , 정수, 실수, 문자열, 널타입
+
+* Map - el로 표현
+	<h1>map-el표현</h1>
+	<%
+		Map<String, String> map = new HashMap<>();
+		map.put("lang", "java");
+		map.put("song", "butter");
+		map.put("singer", "bts");
+		map.put("city", "seoul");
+		map.put("food", "chocolate");
+		pageContext.setAttribute("bean1", map);
+	%>
+	<p>map : ${bean1 }</p>
+	<p>lang : ${bean1.lang }</p>
+	<p>song : ${bean1.song }</p>
+	<p>singer : ${bean1.singer }</p>
+	<p>city : ${bean1.city }</p>
+	<p>food : ${bean1.food }</p>
+
+* List - el표현
+<%
+List<String> list = new ArrayList<>();
+list.add("coffee");
+list.add("beer");
+list.add("soju");
+pageContext.setAttribute("attr1",list);
+%>
+${attr1}
+${attr1[0]}
+${attr1[1]}
+${attr1[2]}
+
+* el 산술 연산
++, -, / or div, *, % or mod
+
+* el 비교 연산
+== or eq
+!= or ne
+> or gt
+>= or ge
+< or lt
+<= or le
+
+* el 논리 연산
+&& or and
+|| or or
+! or not
+
+* el 삼항 연산자
+${ 조건 ? "a" : "b" }
+
+* el empty
+빈값이면 true
+null이면 true, 빈 String("") true
+길이가 0인 배열 true, size가 0인 map도 true
+size가 0인 list,set도 true
+ex)
+<%
+	pageContext.setAttribute("str","");
+	pageContext.setAttribute("arr", new String[] {});
+%>
+${empty str} ---> true
+${empty arr} ---> true

@@ -1,0 +1,13 @@
+'[' = %5B
+']' = %5D
+
+@DateTimeFormat(pattern="yyyy-MM-dd")
+Date타입으로 변환
+
+스프링 MVC Controller는 기본적으로 Java Bean 규칙에 맞는 객체는
+다시 화면으로 객체를 전달함
+SampleDTO 타입의 경우 Java Bean 규칙에 맞기 때문에 자동으로 화면에 전달됨.
+전달될때는 클래스명의 앞글자는 소문자로 처리됨
+
+@ModelAttribute("page") 전달받은 파라미터를 Model에 담아서 전달하도록
+설정해주는 어노테이션

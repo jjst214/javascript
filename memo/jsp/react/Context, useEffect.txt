@@ -1,0 +1,57 @@
+useEffect
+마운트(화면에 첫 렌더링)/ 언마운트(화면에서 사라질때)/업데이트(리렌더링)시
+
+구문 useEffect(함수, 연관배열?)
+useEffect(()=>{
+});
+
+마운트, 언마운트시 실행
+useEffect(()=>{
+	console.log("마운트됨");
+	//return 함수는 언마운트 될 때 호출됨
+	return () => {
+		console.log("언마운트됨");
+	}
+}, [])
+
+컨텍스트API
+최상위 컴포넌트부터 최하단 컴포넌트에 걸친 전역으로 관리해야할 데이터가
+필요한 상황에 사용
+
+1)context생성
+createContext함수로 생성함
+ex> const UserContext = createContext("green")
+
+2)context사용
+const username = useContext(컨텍스트명)
+
+3)context값 변경하여 사용하기
+컴포넌트를 Provider로 감싸주면 그 하위에 있는 모든 컴포넌트는
+Context에 저장되어 있는 전역데이터에 접근 할 수 있음
+value속성으로 context값을 변경 할 수 있음.
+<UserContext.Provider value="blue">
+	<div></div>
+</UserContext.Provider>
+
+실습
+UserContext.js
+
+import {createContext} from "react";
+export const UserContext = createContext("green");
+
+Header.js 함수형 컴포넌트
+const userName = useContext(UserContext);
+
+useState(상태초기값) ---> 상태관리
+useReducer Hook ---> 상태관리
+구문
+useReducer(reducer함수, 초기값)
+reducer함수 ---> 상태를 업데이트 해주는 함수
+현재 상태와 액션객체를 파라미터로 받아서 새로운 상태를 반환해주는 함수
+*액션객체 : 업데이트를 위한 정보를 가진 객체
+function reducer(state, action){
+	return nextState;
+}
+
+const [astate, dispatch] = useReducer(reducer, initState) ----> 배열을 리턴
+dispatch({액션객체(위 function매개변수의 action객체)})

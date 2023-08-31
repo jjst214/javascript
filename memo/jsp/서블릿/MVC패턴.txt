@@ -1,0 +1,4 @@
+MVC패턴
+모델(DAO, DTO, VO)
+뷰(JSP)
+컨트롤러(Servlet)

@@ -1,0 +1,59 @@
+컴포넌트
+함수형 컴포넌트
+import React form './react';
+
+function 컴포넌트명(){
+	return(
+		jsx구문
+	)
+}
+export default 컴포넌트명
+
+상태 state (중요) ---> 상태값이 변경되었을때 (리렌더링)
+useState(초기값) ---> [초기값이 담겨있는 상태, setter함수]
+const[number, setNumber] = useState(10);
+const[sudentArr, setStudentArr] = userState([
+{name:"김", age:22}, {name:"박", age:30}, {name:"김", age:22}
+])
+리액트 훅 (함수) : 다양한 기능을 사용 할 수 있게 만들어준 라이브러리
+1.최상위에서만 Hook을 호출해야 함
+2.리액트 함수 내에서만 Hook을 호출해야 함
+
+useRef훅
+구문 const ref=useRef(value) ---> {current: value}
+ex>
+const ref = useRef(10) ---> {current:10}
+ref.current
+
+변수, 상태, ref
+변수 : 값이 변경되어도 리렌더 되지않음
+리렌더가 되면 초기화 됨
+상태 : 값이 변경되면 리렌더링
+ref : 컴포넌트가 리렌더링되어도 언마운트 되기 전까지 유지됨
+값이 변경되어도 리렌더 되지않음
+function Count(){
+	let num1 = 10;
+	const addNum = () =>{
+		num1++;
+	}
+	return(
+		<div>
+			num1은 : {num1}
+			<button onClick={addNum}></button>
+		</div>
+	)
+}
+
+위 소스 실행결과는 함수가 호출될때마다 num1 이 10으로 초기화 되기때문에 num1++ 가 작동하지않음
+리렌더링 후에도 num1의 값을 계속 유지하고 싶으면 ref를 사용해야함
+
+ref 특징
+DOM(html태그) 접근가능
+document.querySelector("input");
+const nameinput = useRef();
+const onFocus = () =>{
+	nameinput.current.focus();
+}
+nameinput.current
+<input ref={nameinput}/>
+<button onClick={onFocus}>클릭</button>

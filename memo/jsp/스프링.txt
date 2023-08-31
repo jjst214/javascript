@@ -1,0 +1,10 @@
+자바11버전
+톰캣9
+
+sts.exe실행후
+utf 8세팅
+
+프로젝트 생성
+new --> spring legacy project
+프로젝트명 ex00
+패키지명 org.zerock.controller

@@ -1,0 +1,70 @@
+MVC 자료실형 게시판
+
+EL, JSTL, 파일업로드, Servlet
+프로젝트 구상
+비회원제
+회원인증 없이 글 작성 가능
+글 작성 시 비밀번호 입력 필수
+비밀번호를 통해 수정, 삭제 가능
+
+구현
+1.글 목록보기(ListController.java, List.jsp)
+2.글 쓰기(WriteController.java, Write.jsp)
+-자동페이지 이동-->목록보기
+3.상세페이지(ViewController.java, View.jsp[수정,삭제])
+4.삭제하기(DeleteController.java, Delete.jsp)
+-비밀번호 검증 PassController
+자동이동 --> 목록보기
+5.수정하기(EditController.java, Edit.jsp)
+-비밀번호 검증
+-자동이동 --> 상세보기
+
+기능별 요청명 정의
+목록보기		/mvcboard/list.do	ListController
+글쓰기		/mvcboard/write.do	WriteController
+상세보기		/mvcboard/view.do	ViewController
+비밀번호 검증	/mvcboard/pass.do	PassController
+수정		/mvcboard/edit.do	EditController
+삭제			-	PassController
+
+
+프로세스
+브라우저 요청 --> 서블릿(컨트롤러) --> jsp(뷰)
+자바빈즈(모델)
+
+1.테이블 생성
+mvcboard 테이블 생성
+create table mvcboard(
+	idx number primary key,
+	name varchar2(50) not null,
+	title varchar2(200) not null,
+	content varchar2(2000) not null,
+	postdate date default sysdate not null,
+	ofile varchar2(200),
+	sfile varchar2(100),
+	pass varchar2(50) not null,
+	visitcount number default 0 not null
+)
+
+create sequence seq_mvcboard_num
+increment by 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache;
+
+상세보기
+-글 상세보기 시 조회수 1증가(updateVisitcount()구현)
+
+수정하기(EditController.java)
+비밀번호 검증 후 edit.do로 요청
+뷰 Edit.jsp
+
+삭제하기(PassControllder 비밀번호 입력페이지 이동 서블릿)
+비밀번호 check 후 삭제
+pass.do로 요청
+요청시 mode=delete, idx=게시글번호 넘김
+Pass.jsp 비밀번호 입력페이지
+비밀번호와 게시글번호가 일치하는 게시글이 있는지 조회
+모델에 작성confirmPassword(패스워드, idx)

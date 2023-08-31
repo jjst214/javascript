@@ -1,0 +1,83 @@
+서블릿(servlet)
+jsp가 나오기전 자바로 웹 애플리케이션을 개발 할 수 있도록 만든 기술
+서버단에서 클라이언트 요청을 받아 처리한 후 응답하는 역활을 담당
+
+-클라이언트 요청에 대해 동적으로 작동하는 웹 애플리케이션 컴포넌트이다.
+-MVC모델에서 컨트롤러 역할을 함
+-javax.servlet.http 패키지의 HttpServlet클래스를 상속 받음
+
+클라이언트 요청 --> 서블릿 --> model --> view
+
+서블릿 작성 규칙
+1.javax.servlet, javax.servlet.http, java.io 패키지를 import
+2.서블릿 클래스는 반드시 public으로 선언해야하며 HttpServlet을 상속받아야 한다.
+3.사용자의 요청을 처리하기 위해 doGet()메소드 doPost()메소드를 오버라이딩 해야함.
+4.doGet(), doPost()는 예외를 던지도록 선언함
+5.doGet(), doPost()메소드를 호출할때 매개변수
+HttpServletRequest와 HttpServletResponse를 사용한다.
+
+*작동순서
+1)<a href="./MemberAuth.mvc?id=admin&pass=1234">회원인증(관리자)</a>처럼
+주소값에 mapping된 이름(MemberAuth.mvc)을 호출
+2)xml이나 WebServlet 클래스에서 호출받을 경로에 MemberAuth.mvc 라는
+ 매핑명이 있는지 확인하고 있으면 해당 매핑값의 클래스가 실행됨
+ex) MemberAuth.mvc를 호출한 파일의 경로가 myservlet폴더안의 memberauth.jsp라면
+서블릿클래스에 @WebServlet("/myservlet/MemberAuth.mvc") 가 있는지 체크하고 있으면
+해당 클래스가 작동됨
+3)init, service, doGet, doPost등 필요한 메소드를 오버라이딩 후 memberauth.jsp에서 보낸
+파라미터를 담고있는 req 변수를 사용하여 원하는 작업을 처리함
+4)req.getRequestDispatcher("/myservlet/memberauth.jsp").forward(req, resp); 로 해당 주소에
+처리한 값을 가지고 보내거나 resp 로 sendRedirect 해줌
+5)클래스에서 세팅한 값을 사용함
+
+매핑
+요청명 -->서블릿
+study.do 요청
+
+1.web.xml에서 매핑
+<servlet>
+	<servlet-name>서블릿이름</servlet-name>
+	<servlet-class>패키지를 포함한 서블릿 클래스명</servlet-class>
+</servlet>
+<servlet-mapping> 서블릿과 요청명 매칭
+	<servlet-name>서블릿이름</servlet-name>
+	<url-pattern>클라이언트요청URL</url-pattern>
+</servlet-mapping>
+
+2.@WebServlet("요청경로")
+서블릿 클래스 생성할때 annotation으로 @WebServlet("요청경로") 작성해줌
+
+@WebServlet("/myservlet/annomapping.do")
+public class AnnoMapping extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
+	
+}
+
+서블릿 수명주기 메소드
+서블릿은 클라이언트 요청 -> 서블릿 객체 생성 -> 서블릿 초기화
+ -> 요청처리 -> 서버가 종료되면 서블릿 객체 소멸
+
+서블릿 수명주기는 서블릿 컨테이너가 담당함.
+서블릿 객체를 생성하고 각 단계마다 자동으로 특정 메소드를 호출하여
+해당 단계에 필요한 기능을 수행
+서블릿 객체 생성 -> @PostConstruct -> init() -> service()
+ -> doGet(), doPost() -> destory() -> @PreDestory
+
+1)@PostConstruct
+- 객체생성 직후, init()메소드 호출전에 호출됨
+2)init()
+- 최초 요청시 한번만 호출
+- 서블릿의 초기화 작업을 수행하기 위해 호출
+3)service()
+- 클라이언트의 요청을 처리하기 위해 호출
+- 전송방식이 get이면 doGet()메소드, post면 doPost()메소드를 호출
+- service() 메소드는 두가지 전송방식 모두 처리할 수 있음
+4)destory()
+- 서블릿이 새롭게 컴파일되거나 서버가 종료 될 때 호출
+5)@PreDestory
+- destory() 메소드가 실행되고 난 후 컨테이너가 서블릿 객체를 제거하는
+과정에서 호출됨

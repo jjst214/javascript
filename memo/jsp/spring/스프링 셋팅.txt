@@ -1,0 +1,75 @@
+1. pom.xml열기
+-자바버전11 / 5.0.7.RELEASE
+-apache.maven 소스, 타겟 11(자바버전)로 변경
+-lombok, 서블릿, JDBC, HikariCP 등 라이브러리 추가
+-log4j 1.2.17로 바꾸고 밑에 exclusions , scope 지우기
+-junit 버전 4.12로 변경
+
+2.web.xml(src-main-webapp 폴더 쭉타고가면있음)
+-최상단에 web-app version="4.0", 바로 아래에 xsi:schemaLocation 주소 뒤에도 2_5.xsd로 끝나는거 4_0.xsd로 변경
+-servlet파트 안에(<load-on-startup>아래) ajax파일 업로드 시스템에사용할것(c드라이브에 upload>temp 폴더 만듬)
+=서버 파일 업로드 설정
+<multipart-config>
+	<!-- 파일 저장할 공간 -->
+	<location>C:\\upload\\temp</location>
+	<!-- 저장할 파일의 최대 허용크기 -->
+	<max-file-size>20971520</max-file-size><!-- 20MB -->
+	<!-- 응답 파일 최대 크기(한번에 올릴 수 있는 최대 크기) -->
+	<max-request-size>41943040</max-request-size><!-- 40MB -->
+	<!-- 메모리 사용 사이즈 -->
+	<file-size-threshold>20971520</file-size-threshold>
+</multipart-config>
+
+3.servlet-context.xml(webapp-webINF-spring-appServlet폴더내)
+-MultipartResolver타입 객체를 빈으로 등록 = 스프링 업로드 처리(<beans:beans>태그안에 아무곳에나 작성)
+<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+</beans:bean>
+
+
+
+
+
+
+
+
+
+1.스프링버전 5.0.7
+자바 11
+
+2.junit 버전 4.12
+log4j 1.2.17(아래하위코드제거)
+
+3.스프링라이브러리(jdbc,tx,test)
+
+4.롬복
+oracle jdbc
+jdbc 테스트
+
+5.hikariCP, dataSource설치, 테스트
+
+6.myBatis-spring 설치
+SQLSession객체,
+SQLSessionFactory 객체 - 내부적으로 SQLSession객체를 생성하는 객체.
+SQLSession 객체 - Connection을 생성하거나 원하는 SQL을 전달하고 결과를 리턴받는 객체.
+*스프링에 SQLSessionFactory를 등록하는 작업은 SQLSessionFactoryBean을 이용
+root-context.xml에 빈 등록
+
+7.mapper설정
+org.green.mapper 패키지생성
+TimeMapper 인터페이스 생성
+*MyBatis가 동작할때 Mapper를 인식할 수 있도록 설정
+-root-context.xml 네임스페이스 탭에서 mybatis-spring 체크
+-root-context.xml에 <mybatis-spring:scan base-package="org.green.mapper"/> 작성
+
+8.log4jdbc-log4j2 설정
+로그를 제대로 출력하기 위한 라이브러리
+SQL변환해서 PreparedStatement에 사용된 ?값이 어떤 값으로 처리되었는지 확인하는 기능
+
+====================spring - mvc 설정====================
+8.서블릿 상위버전 설치
+
+9.web.xml의 버전 2.5에서 8번에서 설치한 서블릿 버전으로 맞춰줌
+
+10.pom.xml로 돌아와서 네임스페이스탭에 context 체크해주고
+<context:component-scan base-package="org.green.service"></context:component-scan>
+추후에 만들 서비스패키지 등록

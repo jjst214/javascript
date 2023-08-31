@@ -1,0 +1,41 @@
+스프링 부트에서 의존성 주입
+스프링부트는 애플리케이션 클래스를 검색하고
+특정한 어노테이션(@Service, @Controller, @Repository) 이
+지정된 클래스를 스프링 빈으로 등록한다.
+
+빈(bean)객체는 @Autowired 어노테이션을 통해서 주입할 수 있음
+
+JPA를 이용한 데이터베이스 생성 및 접근
+1)H2 데이터 베이스 사용하기
+pom.xml에 의존성 추가하기
+<dependency>
+	<groupId>com.h2database</groupId>
+	<artifactId>h2</artifactId>
+	<scope>runtime</scope>
+</dependency>
+
+server.port=8010
+spring.datasource.url=jdbc:h2:mem:testdb
+//jpa sql문 보여지기 여부
+spring.jpa.show-sql=true
+//h2 웹 기반 콘솔 사용여부
+spring.h2.console.enabled=true
+//h2 콘솔의 경로지정
+spring.h2.console.path=/h2-console
+
+CRUD 리포지터리 만들기
+CrudRepository인터페이스 : 엔티티 클래스에 crud기능을 제공
+1)CarRepository 인터페이스 생성 CrudRepository 인터페이스 상속
+자주 사용되는 메소드
+count() : 엔티티 수 반환
+findAll() : 지정한 형식의 모든 항목을 반환
+findById(Id id) : 지정한 id의 한 항목을 반환
+delete(T entity) : 엔티티 삭제
+deleteAll() : 모든 엔티티 삭제
+save() : 엔티티 저장
+saveAll() : 여러 엔티티를 저장
+
+2)H2 데이터 베이스에 데이터 추가하기
+* CommandLineRunner 인터페이스 구현하기
+애플리케이션이 완전히 시작되기 전에 추가 코드를 실행할 수 있음
+

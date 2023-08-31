@@ -1,0 +1,40 @@
+페이지 모듈화
+1.<jsp:include> 액션태그를 활용한 공통영역 작성
+공통 구성 요소를 위한 코드를 모든 페이지마다 작성하지 않고 따로 페이지로
+만들어서 사용하는 액션태그이다.
+
+1)액션태그 사용법
+<jsp:include page="포함할 페이지" flush="false"/>
+page : 포함할 jsp페이지경로
+flush : 지정한 jsp페이지를 실행하기 전에 출력버퍼를 플러시 할지를 지정(디폴트값 false)
+
+param 액션태그
+현재 jsp페이지에서 다른 페이지로 정보를 전달하는 태그
+단독으로 사용하지 않으며 <jsp:forward>나 <jsp:include>태그의
+내부에서 사용된다.
+ex)
+<jsp:include>
+	<jsp:param name="매개변수명" value="값" />
+</jsp:include>
+
+header.jsp
+request.getParameter("매개변수명");
+
+디렉티브 include 처리방식과 사용법
+1.디렉티브 사용방법
+<%@ include file="파일경로"%>
+jsp파일을 자바파일로 변환하기 전에 include디렉티브에서 지정한 파일의 내용을
+해당위치에 삽입하고 그 결과로 생긴 자바파일을 컴파일함.
+
+include되는 파일의 확장자는 jsp, jspf
+
+<jsp:include> 액션태그			include 디렉티브
+처리속도 : 요청시간에 처리			jsp파일을 자바소스로 변환할 때 처리
+별도의 파일로 요청 처리 흐름을 이동		현재파일에 통째로 삽입시킴
+<jsp:param>을 이용해 데이터 전달		페이지내에 변수를 지정하고 변수의 값 지정
+
+화면의 레이아웃의 일부분을 모듈화 할 때 사용	다수의 jsp페이지에서 공통으로 사용되는 변수를
+					지정하는 코드나 저작권같은 문장을 나타낼때 사용
+
+<jsp:forward> 액션태그			<%@include file="파일위치"%>
+기본문법 <jsp:forward page="이동할 페이지">

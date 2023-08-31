@@ -1,0 +1,96 @@
+프로시저
+create or replace procedure 프로시저명
+is 아니면 as
+	변수선언
+begin
+	실행부
+end;
+
+
+ex1)
+create or replace procedure pro_noparam
+is
+    v_empno number(4) := 7788;
+    v_ename varchar2(10);
+begin
+    v_ename := 'scott';
+    dbms_output.put_line('v_empno : ' || v_empno);
+    dbms_output.put_line('v_ename : ' || v_ename);
+end;
+여기까지 프로시저 컴파일
+/
+set serveroutput on;
+execute pro_noparam; --프로시저 실행
+
+-------------------------------------------------------------------
+
+ex2) 파라미터 이용
+create or replace procedure pro_param_in
+(
+    param1 in number,
+    param2 number,
+    param3 number := 3,
+    param4 number default 4
+)
+is
+begin
+    dbms_output.put_line('param1 : ' || param1);
+    dbms_output.put_line('param2 : ' || param2);
+    dbms_output.put_line('param3 : ' || param3);
+    dbms_output.put_line('param4 : ' || param4);
+end;
+/
+set serveroutput on;
+execute pro_param_in(param2 => 10, param1 => 20); 
+결과-> 20, 10, 3, 4
+execute pro_param_in(10,10)
+결과->10, 20, 3, 4
+execute pro_param_in(1,2,6,7)
+결과->1,2,6,7
+execute pro_param_in();
+결과-> error (3,4번 파라미터는 기본값을 줬지만 1,2번을 할당안해줬기때문)
+/
+---------------------------------------------------------------------------------------
+
+* out모드 파라미터
+create or replace procedure pro_param_out(
+    in_empno in emp.empno%type,
+    out_ename out emp.ename%type,
+    out_sal out emp.sal%type
+    --사용자가 프로시저 사용시에 empno(in타입)을 넣어주면 그 empno에 해당하는
+    ename과 sal이 리턴된다.
+)
+is
+begin
+    select ename, sal into out_ename, out_sal
+    from emp
+    where empno=in_empno;
+end pro_param_out;
+/
+declare
+    v_ename emp.ename%type;
+    v_sal emp.sal%type;
+begin
+    pro_param_out(7369, v_ename, v_sal);
+    dbms_output.put_line('v_ename : ' || v_ename);
+    dbms_output.put_line('v_sal : ' || v_sal);
+end;
+
+----------------------------------------------------------------------------------------------
+
+* in out모드 파라미터
+create or replace procedure pro_param_inout(
+    inout_no in out number
+)
+is
+begin
+    inout_no := inout_no * 2;
+end pro_param_inout;
+/
+declare
+    num number;
+begin
+    num := 5;
+    pro_param_inout(num);
+    dbms_output.put_line('num은 : ' || num);
+end;

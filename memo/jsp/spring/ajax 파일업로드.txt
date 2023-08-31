@@ -1,0 +1,26 @@
+파일의 확장자 크기의 사전처리
+exe, sh, zip, alz ---> 해당 종류의 파일은 업로드 할 수 없습니다.
+파일 사이즈 초과시 ---> 파일사이즈 초과
+let regex = new RegExp("");
+
+
+중복된 이름의 첨부파일 처리
+1.년/월/일 폴더 생성
+java.io.File mkdirs ---> 폴더를 생성 할 수 있음
+2.중복 방지를 위한 UUID 적용
+java.util.UUID
+UUID uuid = UUID.randomUUID();
+
+
+
+
+썸네일 이미지 생성
+1)라이브러리 추가(pom.xml)
+maven thumbnailator
+2)업로드된 파일이 이미지 종류인지 체크
+이미지 파일인 경우 썸네일 이미지 생성, 저장
+
+업로드된 파일의 데이터를 반환
+서버에서 ajax의 결과를 전달하기
+업로드된 파일의 경로가 포함된 파일의 이름을 전달
+maven jackson-databind

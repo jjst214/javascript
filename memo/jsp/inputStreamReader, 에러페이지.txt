@@ -1,0 +1,42 @@
+* InputStreamReader 객체 생성하기
+1)절대경로를 사용하여 생성하기
+InputStreamReader fr = new InputStreamReader(new FileInputStream(절대경로), "utf-8");
+
+2)application 객체를 사용하여 생성하기
+InputStreamReader fr = new InputStreamReader(application.getResourcesAsStream(상대경로),"utf-8");
+
+3)url.openStream() 메소드를 사용하여 생성하기
+URL url = application.getResource(상대경로);
+InputStreamReader fr = new InputStreamReader(url.openStream(), "utf-8");
+
+* read() 사용하기
+read(byte[])
+파일 끝까지 도달할 때 까지 데이터의 바이트를 반복적으로 바이트 배열로 읽음.
+읽은 만큼 값을 리턴해줌.
+읽을게 없을 때는 -1 을 반환
+
+* 예외 직접처리하기
+1.try..catch로 처리
+2.에러 페이지 지정하기
+
+2-1)page 디렉티브에서 errorPage속성을 사용하기
+
+에러발생페이지에서 에러 발생시 이동할 페이지를 지정(최상단)
+>>
+<%@ page errorPage = "/error/viewErrorPage.jsp" %>
+
+에러페이지로 지정
+<%@ page isErrorPage = "true" %>
+에러페이지로 지정해야 exception 객체를 사용할 수 있음
+
+
+* 응답 상태 코드 별로 에러 페이지 지정
+주요 상태코드
+200 : 요청을 정상적으로 처리 함
+307 : 임시로 페이지를 리다이렉트 함
+400 : 클라이언트 요청이 잘못된 구문으로 구성됨
+401 : 접근을 허용하지 않음
+404 : 요청한 URL을 처리하기 위한 자원이 존재하지 않음
+405 : 요청한 메소드를 허용하지 않음
+500 : 서버 내부 에러가 발생함(jsp에서 예외발생)
+503 : 서버가 일시적으로 서비스를 할 수 없음

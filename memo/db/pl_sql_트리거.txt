@@ -1,0 +1,26 @@
+데이터베이스 안의 특정 상황이나 동작, 즉 이벤트가 발생할 경우에 자동으로 실행되는 기능
+트리거 활성화/비활성화
+alter trigger 트리거명 enable | disable;
+
+1)DML(insert, update, delete) 트리거
+create or replace trigger trg_emp_nodml_weekend
+before
+insert or update or delete on emp_trg
+begin
+    if to_char(sysdate, 'DY') in ('화') then
+        if inserting then
+            dbms_output.put_line('insert되셨어요');
+        elsif updating then
+            dbms_output.put_line('update되셨어요');
+        elsif deleting then
+            dbms_output.put_line('delete되셨어요');
+        else
+            dbms_output.put_line('화요일말곤 변경 안되용');
+        end if;
+    else
+        dbms_output.put_line('주말이 아닙니다요');
+    end if;
+end;
+
+----------------------------------------------------------------------
+

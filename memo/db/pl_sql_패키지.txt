@@ -1,0 +1,57 @@
+패키지 본문
+패키지 본문에서는 패키지 명세에서 선언한
+서브프로그램 코드를 작성함.
+
+create or replace package body 패키지명
+is
+end;
+
+ex)
+create or replace package body pkg_example
+is
+    body_no number := 10;
+    function func_aftertax(sal number) return number
+    is
+        tax number := 0.05;
+    begin
+        return (round(sal-(sal*tax)));
+    end func_aftertax;
+    procedure pro_emp(in_empno in emp.empno%type)
+    is
+        out_ename emp.ename%type;
+        out_sal emp.sal%type;
+    begin
+        select ename, sal into out_ename, out_sal
+        from emp
+        where empno = in_empno;
+        dbms_output.put_line('ename : ' || out_ename);
+        dbms_output.put_line('sal : ' || out_sal);
+    end pro_emp;
+    procedure pro_dept(in_deptno in dept.deptno%type)
+    is
+        out_dname dept.dname%type;
+        out_loc dept.loc%type;
+    begin
+        select dname, loc into out_dname, out_loc
+        from dept
+        where deptno = in_deptno;
+        dbms_output.put_line('dnamd : ' || out_dname);
+        dbms_output.put_line('loc : ' || out_loc);
+    end;
+end;
+/
+
+패키지사용법
+패키지이름.객체이름;
+>>
+set serveroutput on;
+begin
+    pkg_example.pro_emp(7369);
+end;
+
+
+패키지 삭제하기(명세, 본문 한번에 삭제)
+drop package 패키지명;
+
+패키지 본문 삭제하기
+drop package body 패키지명;

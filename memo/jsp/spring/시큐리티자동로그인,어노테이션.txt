@@ -1,0 +1,61 @@
+1.자동로그인
+한번 로그인하면 일정 시간동안 다시 로그인을 하지않아도 되는 기능
+쿠키를 이용해서 구현
+
+1)데이터 베이스
+로그인이 되었던 정보를 db를 통해 기록
+사용자의 재방문시 정보가 없으면 db를 조회해서 사용하는 방식
+지정된 이름의 테이블을 생성
+create table persistent_logins(
+	username varchar2(64) not null,
+	series varchar2(64) primary key,
+	token varchar2(64) not null,
+	last_used timestamp not null
+);
+
+2)security-context.xml <remember-me> 설정
+data-source-ref : dataSource를 지정하고 테이블을 이용해서 기존 로그인 정보를 기록
+token-validity-seconds : 쿠키 유효시간(초단위, 604800은 일주일)
+<security:http>
+<security:remember-me data-source-ref="dataSource"
+token-validity-seconds="604800"/>
+
+3)customLogin.jsp 에 추가
+<input type="checkbox" name="remember-me" />
+
+
+2.어노테이션
+@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_MEMBER"})
+@getMapping("/annoAdmin")
+@PreAuthorize
+@PostAuthorize
+사용자의 권한 정보에 따라 자동으로 해당
+메소드의 접근을 제한
+()안에 문자열 혹은 문자열 배열을 이용
+ex)
+@Secured({"ROLE_ADMIN", "ROLE_MEMBER"})
+@getMappeing("/annoAdmin")
+public void getAdminpage(){
+	
+}
+
+표현식
+hasRole(role) : 현재 사용자의 권한이 파라미터의 권한과 동일한 경우
+hasAnyRole("권한1", "권한2") : 현재 사용자의 권한이 파라미터의 권한중 일치하는것이 있으면 true
+isAnonymous() : 현재 사용자가 익명(비로그인) 상태인 경우 true
+isAuthenticated() : 현재 사용자가 익명이 아니라면 true
+permitAll : 모든 접근 허용
+denyAll : 모든 접근 비허용
+isRememberMe : 현재 사용자가 RememberMe 사용자라면 true
+@PreAuthorize : 요청이 들어오고 함수를 실행하기 전에 권한을 검사하는 어노테이션
+@PostAuthorize : 함수를 실행하고 클라이언트한테 응답하기 직전에 권한을 검사하는 어노테이션
+스프링 3버전부터 지원
+()안에 표현식 사용가능
+
+어노테이션 활성화
+mvc설정을 담당하는 servlet-context.xml에서 설정
+namespace에서 security 체크
+xsi:schemaLocation에 추가된 security url에 버전만 삭제(spring-security-5.0.xsd --> spring-security.xsd)
+<security:global-method-security pre-post-annotations="enabled" 
+secured-annotations="enabled" />

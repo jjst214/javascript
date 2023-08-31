@@ -1,0 +1,28 @@
+자바빈과 액션 태그
+자바빈
+동적 콘텐츠 개발을 하기위해 자바 코드를 사용하여 자바 클래스로
+로직을 작성하는 방법
+jsp페이지에서 화면을 표현하기 위한 계산식이나 자료의 처리를
+담당하는 자바코드를 따로 분리하여 작성하는것
+
+자바빈 클래스 만들기
+- 인수가 없는 기본 생성자
+- 모든 멤버변수는 private으로 설정
+- 모든 멤버변수는 getter/setter메소드가 존재해야함
+
+MemberInfo
+
+id, password, name, address, email
+
+
+<jsp:useBean> 액션태그 사용하여 객체 생성하기
+
+<jsp:useBean id="" class="" scope=""/>
+id : jsp페이지에서 자바빈 객체에 접근할때 사용할 이름
+class : 패키지이름을 포함한 자바빈 클래스의 완전한 이름을 입력
+scope : 자바빈 객체를 저장할 영역을 지정
+page, request, session, application
+
+ex)
+makeObj.jsp
+<useBean id="member" class="el_chap02.member.MemberInfo" scope="page">

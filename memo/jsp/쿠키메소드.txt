@@ -1,0 +1,10 @@
+getName()		String	쿠키이름을 구함
+getValue()		String	쿠키값을 구함
+setValue(String Value)	void	쿠키값을 지정함
+setDomain(String pattrn)	void	이 쿠키가 전송될 서버의 도메인을 지정
+getDomain()		String	쿠키의 도메인을 구함
+setPath(String url)		void	쿠키를 전송할 경로를 지정
+getPath()			String	쿠키의 전송 경로를 구함
+setMaxAge(int expiry)	void	쿠키의 유효시간을 초단위로 지정함.
+				음수 입력시 웹브라우저를 닫을 때 쿠키가 함께 삭제됨
+getMaxAge()		int	쿠키의 유효시간을 구함

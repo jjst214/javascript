@@ -1,0 +1,36 @@
+create or replace function 함수명()
+return 자료형
+is | as
+	선언부
+begin
+	실행부
+	return 반환값;
+exception
+	예외처리부;
+end 함수이름;
+
+
+ex)
+create or replace function func_aftertax(
+    sal in NUMBER
+)
+return number
+is
+    tax number := 0.05;
+begin
+    return (round(sal-(sal*tax)));
+end func_aftertax;
+/
+
+사용법1)
+set serveroutput on;
+declare
+    aftertax number;
+begin
+    aftertax := func_aftertax(3000);
+    dbms_output.put_line('after-tax : ' || aftertax);
+end;
+
+사용법2)
+select empno, ename, sal, func_aftertax(sal) as aftertax
+from emp;

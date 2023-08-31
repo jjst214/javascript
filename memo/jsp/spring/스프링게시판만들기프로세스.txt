@@ -1,0 +1,14 @@
+스프링 게시판 웹 제작
+1.VO, DTO 데이터 클래스 (org.green.domain패키지)
+2.Mapper 인터페이스(org.green.mapper 패키지)
+3.Mapper.xml 생성(java/resource 폴더안에 org->green->mapper 폴더를 차례대로 만들고 그 안에 생성)
+*namespace 인터페이스로 지정
+*select 작업을 하는 매핑에는 resultType을 지정해줘야함
+<select id="mapper인터페이스에서 지정한 추상메소드명" resultType="org.green.domain.받아올vo또는dto파일명">
+쿼리문작성
+</select>
+4.Service인터페이스 생성(org.green.service 패키지)
+5.Service 구현 클래스 작성(인터페이스 implements) --> mapper Setter 주입
+6.Controller 클래스 생성(org.green.controller 패키지)
+	서비스,model
+요청 -------------------------> 뷰

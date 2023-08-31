@@ -1,0 +1,26 @@
+JWT로그인
+1)JJwt 라이브러리 설치
+jjwt-api / jjwt-impl / jjwt-jackson
+
+2)JWTService 클래스 생성
+getToken메서드 ---- 토큰 생성 반환
+getSubject메서드 ---- 사용자 이름 반환
+
+JWT xxxxxx.yyyyyyyy.zzzzzzz
+마침표로 구분된 3부분으로 구성된다
+헤더/페이로드/서명
+
+3)AccountCredentials 클래스 생성
+
+4)로그인을 위한 컨트롤러 클래스 생성
+/login
+
+5)SecurityConfig클래스에 빈추가, 시큐리티 기능추가
+
+
+인증예외처리
+틀린암호로 로그인시도하면 추가 정보없이 403상태가 반환
+Authentication
+
+Bearer
+eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjkzNDQyOTQ3fQ.gIV1l09zWb9VqLKxhPRuxoXcFjk48sCcUx3ZyQrmQ28

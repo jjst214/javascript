@@ -1,0 +1,24 @@
+DOM요소선택
+$("선택자")
+
+반복실행
+$.each(배열, function(index, item){
+
+})
+
+이벤트연결
+$("#btn").click(function(){
+
+})
+
+$.ajax({
+	url: "요청url",	//요청url
+	type: "get",	//http메소드
+	data: {		//매개변수로 전달할 데이터
+		keyword: $("#keyword").val(),
+		startNum: $("#startNum").val()
+	}
+	dataType: "json",	//응답 데이터 형식
+	success: 함수이름,	//요청이 성공했을때 호출할 함수설정
+	error: 함수이름	//요청이 실패했을때 호출할 함수설정
+})

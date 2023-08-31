@@ -1,0 +1,36 @@
+재귀복사(잉여데이터 넣을때)
+insert into tbl_board(bno, title, content, writer)
+ (select seq_board.nextval, title, content, writer from tbl_board);
+
+
+페이징 가장 최근글 10개까지 
+select * from (select Tb.*, rownum rNum from(select * from tbl_board order by bno desc) Tb)
+  where rNum between 1 and 10
+
+
+페이징 순서
+1.Criteria 클래스 생성
+org.green.domain 패키지
+Criteria 클래스 생성
+pageNum : 페이지 넘버
+amount : 한페이지에 보여질 게시글 갯수
+
+2.BoardMapper 인터페이스
+
+4.BoardController수정
+
+5.페이징 처리를 위한 클래스 설계
+org.green.domain패키지에
+PageDTO클래스 생성
+startPage
+endPage
+prev, next
+total
+cri
+
+게시글 조회할때 pageNum과 amount 전송하기(특정페이지의 글을 들어갔다가 목록버튼을
+눌러 다시 리스트로 나올때 클릭한 글이 있던 리스트로 돌아가기 위함)
+
+BoardController
+@RequestParam
+@ModelAttribute("cri") - 사용자가 요청시 전달하는 값을 오브젝트 형태로 매핑해주는 어노테이션

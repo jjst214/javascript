@@ -1,0 +1,58 @@
+select Tb.*,  from (select * from
+
+MyBatis 동적 태그들
+if <if>
+<if test="true">
+	title like '%'|| #{keyword}||'%'
+</if>
+
+where <where>
+<where>
+	<if test="bno != null">
+	bno = #{bno}
+	</if>
+</where>
+
+foreach
+separator="or" 을 넣어주면 중간중간에 or 쿼리가 추가됨
+<foreach collection="" index="key" item="val">
+	<if test="">
+		title like #{val}
+	</if>
+</foreach>
+
+trim <trim>
+prefix=앞에 where추가 / suffix=뒤에 추가
+<trim prefix="where">
+</trim>
+
+sql <sql> SQL일부를 별도로 보관
+<sql id="id명">
+	SQL일부
+</sql>
+<include> 필요한 경우 include 시키는 형태로 사용
+<include refid="id명"></include>
+
+
+
+검색어 +where 해줘야하는 부분
+	<sql id="criteria">
+		<!-- prefix=앞에 쿼리추가 / suffix=뒤에 쿼리추가 -->
+		<trim prefix="where(" suffix=")">
+			<if test="typeArr != null">
+			<foreach item="type" collection="typeArr" separator="or">
+				<choose>
+					<when test="type == 'T'.toString()">
+				 		title like '%'||#{keyword}||'%'
+				 	</when>
+					<when test="type == 'C'.toString()">
+				 		content like '%'||#{keyword}||'%'
+				 	</when>
+					<when test="type == 'W'.toString()">
+				 		writer like '%'||#{keyword}||'%'
+				 	</when>
+			 	</choose>
+			</foreach>
+			</if>
+		</trim>
+	</sql>

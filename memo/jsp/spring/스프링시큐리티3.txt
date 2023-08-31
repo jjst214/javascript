@@ -1,0 +1,392 @@
+﻿스프링 - 시큐리티
+
+1.pom.xml에 라이브러리 추가 (동일한 버전)
+
+서블릿의 여러 종류의 필터와 인터셉터를 이용해 처리됨.
+
+spring-security-web
+
+spring-security-core
+
+spring-security-taglibs
+
+spring-security-config
+
+2.설정파일 생성
+
+security-context.xml (WEB-INF/spring폴더 안에)
+
+네임스페이스 : security항목 체크 
+
+​
+
+web.xml필터 추가
+
+<context-param>
+
+<param-value>
+
+/WEB-INF/spring/root-context.xml
+
+/WEB-INF/spring/security-context.xml
+
+</param-value>
+
+</context-param>
+
+<filter>
+
+       <filter-name>springSecurityFilterChain</filter-name>
+
+       <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+
+ </filter>
+
+ <filter-mapping>
+
+       <filter-name>springSecurityFilterChain</filter-name>
+
+       <url-pattern>/*</url-pattern>
+
+  </filter-mapping>
+
+​
+
+3.security-context.xml 설정 
+
+1)시작점 <security:http>
+
+2)인증 <security:authentication-manager>
+
+3)접근제한 설정 <security:intercept-url pattern="/sample/all" access="permitAll">
+
+premitAll : 모두에게 허용
+
+hasRole('권한')  : 권한이있는지 체크 
+
+4)로그인 페이지 설정 <security:form-login/>
+
+5)인증(Authentication)과 권한부여(Authorization) 
+
+Authentication-manager : 인증 매니저 
+
+ProviderManager : 인증 제공자  Authentication-Provider타입의 객체를 이용해 처리
+
+UserDitailsService : 실제로 사용자의 정보와 사용자가 가진권한의 정보를 처리해서 반환  
+
+<security:http>
+
+<security:intercept-url pattern="/sample/all" access="permitAll">
+
+<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')">
+
+<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')">
+
+<security:form-login/>
+
+</security:http>
+
+<security:authentication-manager>
+
+<security:authentication-provider>
+
+<security:user-sevice>
+
+<security:user name="member" password="member" authorities="ROLE_MEMBER" />
+
+<security:user name="admin" password="admin" authorities="ROLE_MEMBER,ROLE_ADMIN" />
+
+</security:user-sevice>
+
+</security:authentication-provider>
+
+</security:authentication-manager>
+
+4.접근거부페이지 설정하기
+
+01)error-page지정하기
+
+- security-context.xml에 설정
+
+<security:access-denaied-handler error-page="/accessError" />
+
+- CommonCotroller에서 /accessError처리하도록 작성
+
+@GetMapping("/accessError")   ----> accessError.jsp
+
+public void accessDenide(Authentication auth, Model model){
+
+model.addAttribute("msg","접근거부");
+
+}
+
+02)AccessDeniedHander인터페이스 구현하기 
+
+CustomAcessDeniedHander클래스 생성 (AccessDeniedHander인터페이스구현클래스)
+
+security-context.xml 빈으로 등록
+
+<security:access-denaid-hander > 태그의 error-page속성대신 ref속성으로 변경
+
+ref속성 값으로 bean id를 지정
+
+5.커스텀 로그인 페이지
+
+1) 로그인 페이지 지정 <security: form-login login-page="/customLogin" />
+
+2) CommonCortroller에 로그인 요청처리 추가
+
+@GetMapping("/customLogin")   --->  customLogin.jsp
+
+public void loginInput(String error, String logout, Model model){
+
+if(error != null){
+
+model.addAttribute("error", "로그인오류");
+
+}
+
+if(logout != null){
+
+model.addAttribute("logout", "로그아웃~!");
+
+}
+
+}
+
+3)costomLogin.jsp생성
+
+<form method="post" action="/login">
+
+<input type="text" name="username" />
+
+<input type="password" name="password" />
+
+<input type="submi" />
+
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+</form>
+
+4)로그인 성공처리후 특정한 동작을 하도록 제어
+
+AuthenticationSuccessHandler 인터페이스 
+
+- CustomLoginSuccessHander클래스 생성 (AuthenticationSuccessHandler 인터페이스)
+
+- security-context.xml 에 빈으로 등록
+
+- authentication-success-handler-ref="customLoginSuccess" 속성 지정
+
+​
+
+5)로그아웃 처리
+
+- security-context.xml logout 설정
+
+<security:logout logout-url="/customLogout" invalidate-session="true" />
+
+- CommonController  /customLogout 처리 작성
+
+@GetMapping("/customLogout")
+
+public void logoutGet(){  --> customLogout.jsp
+
+​
+
+}
+
+- costomLogout.jsp생성 
+
+<form action="/customLogout" method="post">
+
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+<button>로그아웃</button>
+
+</form>
+
+​
+
+6.JDBC를 이용하는 인증/권한처리
+
+Authentication Manager : 인증과 권한 처리 
+
+1)인증이나 정보를 제공하는 존재(Provider)
+
+2)UserSetailsService 인터페이스 구현 존재 활용  
+
+​
+
+jdbc를 이용하기 위한 설정 
+
+<security:user-sevice>
+
+<security:user name="member" password="member" authorities="ROLE_MEMBER" />
+
+<security:user name="admin" password="admin" authorities="ROLE_MEMBER,ROLE_ADMIN" />
+
+</security:user-sevice>
+
+<security:authentication-manager>
+
+<security:authentication-provider>
+
+<security:jdbc-user-service data-source-ref="dataSource" />
+
+</security:authentication-provider>
+
+</security:authentication-manager
+
+​
+
+create table users(
+
+      username varchar2(50) not null primary key,
+
+      password varchar2(50) not null,
+
+      enabled char(1) default '1'
+
+);
+
+ create table authorities (
+
+      username varchar2(50) not null,
+
+      authority varchar2(50) not null,
+
+      constraint fk_authorities_users foreign key(username) references users(username)
+
+);
+
+​
+
+인증/권한을 위한 테이블 설계 
+
+create table tbl_member(
+
+      userid varchar2(50) not null primary key,
+
+      userpw varchar2(100) not null,
+
+      username varchar2(100) not null,
+
+      regdate date default sysdate, 
+
+      updatedate date default sysdate,
+
+      enabled char(1) default '1');
+
+ 
+
+ 
+
+create table tbl_member_auth (
+
+     userid varchar2(50) not null,
+
+     auth varchar2(50) not null,
+
+     constraint fk_member_auth foreign key(userid) references tbl_member(userid)
+
+);
+
+BCryptPasswordEncoder 클래스를 이용한 패스워드 보호 
+
+BCryptPasswordEncoder 클래스는 이미 시큐리티 API에 포함되어있으므로 구현하지않음
+
+bean으로 등록만해줌!!!!!!!
+
+<bean id="bcriptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+
+<security:authentication-manager>
+
+<security:authentication-provider>
+
+<security:jdbc-user-service data-source-ref="dataSource"
+
+users-by-username-query = "select userid, userpw, enabled from tbl_member where userid = ?" 
+
+authorities-by-username-query = "select userid, auth from tbl_member_auth where userid = ?"
+
+/>
+
+<security:password-encoder ref="bcriptPasswordEncoder" />
+
+</security:authentication-provider>
+
+</security:authentication-manager
+
+​
+
+7.UserDetailsServices 인터페이스 구현하는 방식
+
+1)회원클래스, 회원권한 클래스 생성 
+
+org.green.domain 패키지 생성
+
+MemberVO클래스
+
+AuthVO클래스 
+
+​
+
+2)MemberMapper인터페이스 생성, 
+
+​
+
+MemberMapper.xml생성 
+
+<resultMap type="org.green.domain.MemberVO" id="memberMap"
+
+​
+
+</resultMap>
+
+<resultMap type="org.green.domain.AuthVO" id="authMap">
+
+​
+
+</resultMap>
+
+​
+
+resultMap="memberMap"
+
+select 
+
+mem.userid, userpw, username, enabled, regdate, updatedate, auth
+
+from tbl_member mem left outer join tbl_member_auth auth 
+
+on mem.userid = auth.userid
+
+where mem.userid = #{userid}
+
+​
+
+3)UserDetailsService 인터페이스를 구현한 CustomUserDetailService 클래스 생성
+
+UserDetailsService 인터페이스 추상메소드 loadUserByUsername() 
+
+UserDetails타입 --> 인터페이스
+
+User클래스 UserDetails상속  
+
+org.springframework.security.core.userdetails.User클래스(UserDetails구현하고 있음)
+
+CustomUser 상속 User 
+
+security-context.xml
+
+- 클래스 빈으로 등록
+
+<bean id="customUserDetailService" class="org.green.security.CustomUserDetailService"></bean>
+
+- 인증제공자 수정(authentication-provider)
+
+user-service-ref 속성으로 지정 
+
+<security:authentication-provider user-service-ref="customUserDetailService">
+[출처] 스프링 - 시큐리티|작성자 손블리

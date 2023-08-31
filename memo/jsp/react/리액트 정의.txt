@@ -1,0 +1,17 @@
+npm uninstall -g create-react-app (리액트 앱 재설치)
+npm install -g create-react-app (리액트 앱 재설치)
+npx create-react-app begin-react (begin-react라는 프로젝트 이름을 가진 리액트 프로젝트 생성)
+프로젝트 실행
+(vscode 터미널에서 경로를 맞추고) npm start 
+
+vs code 확장 익스텐션 설치에서
+Reactjs code snippets (리액트 코드 자동완성)
+ESLint (에러 코드 체크)
+리액트, 앵큘러, 뷰
+SPA(Single Page Application)
+단일 페이지로 구성된 어플리케이션
+필요한 모든 정적 리소스를 처음에 한번 다운로드한다.
+페이지 이동시 갱신에 필요한 데이터만 json으로 전달받아 페이지를 Redirect(갱신)함
+* 전체적인 페이지가 렌더링 되지 않으므로 트래픽을 감소시킬 수 있고
+새로고침이 발생하지 않아 네이티브 앱과 유사한 사용자 경험을 제공 할 수 있다.
+속도, 사용성, 반응성의 향상으로 더 나은 사용자 경험을 제공

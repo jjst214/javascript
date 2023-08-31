@@ -1,0 +1,12 @@
+rownum
+오라클에서 생성된 모든 테이블에서 사용할 수 있는 가상의 컬럼
+데이터에 순차적으로 순번을 부여함
+
+
+게시글 페이징 조회 (가장 최근 1~10번게시글 만 보기)
+select num, title, content, id, rownum from board order by num desc;
+select * from (
+    select tb.*, rownum nums from
+    (select * from board order by num desc) tb
+)
+where nums between 1 and 10;

@@ -1,0 +1,59 @@
+fmt
+
+1)formatNumber
+<c:set var="number1" value="12345"/>
+콤마 O : <fmt:formatNumber value="${number1 }"/>
+콤마 X : <fmt:formatNumber value="${number1 }" groupingUsed="false"/>
+<fmt:formatNumber value="${number1 }" type="currency" var="printNum"/>
+통화기호 : ${printNum }<br>
+<fmt:formatNumber value="0.03" type="percent" var="printNum2"/>
+퍼센트 : ${printNum2 }
+	
+<h2>문자열을 숫자로 변경</h2>
+<c:set var="number2" value="6,789.01"/>
+<fmt:parseNumber value="${number2 }" var="printNum3" pattern="00,000.00"/>
+소수점까지 : ${printNum3 }<br>
+<fmt:parseNumber value="${number2 }" var="printNum4" integerOnly="true"/>
+정수부분만 : ${printNum4 }
+
+2)날짜포맷 및 타임존
+<fmt:formatDate> 태그
+<fmt:formatDate value="출력할날짜" type="출력양식" dateStyle="날짜스타일"
+timeStyle="시간스타일" pattern="날짜패턴" scope="영역" var="변수설정"/>
+
+<fmt:formatDate> 태그 속성
+value : 값입력
+type : 날짜(date), 시간(time), 날짜 및 시간(both) 세 가지중 선택
+dateStyle : default, short, medium, long, full 중 선택
+timeStyle : default, short, medium, long, full 중 선택
+pattern : 출력할 날짜와 시간 양식을 패턴으로 지정
+var : 변수지정
+scope : 변수를 저장할 영역 지정
+
+설정한 지역 시간대로 출력
+<fmt:timeZone value="America/Chicago">
+</fmt:timeZone>
+
+로케일 설정
+국가별로 다른 통화기호나 날짜를 표현할때 사용
+<fmt:setLocale value="국가기호"/>
+
+XML태그
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml %>
+
+XML태그 종류
+out : select 속성에 지정한 XPath표현식의 결과를 출력
+parse : XML파싱할때 사용
+forEach : select속성에 지정한 반복되는 노드를 파싱
+if : select속성에 지정한 XPath표현식의 값을 하나으 ㅣ조건으로 결정
+choose : select 속성에 지정한 XPath표현식의 값을 다중 조건으로 결정
+when, otherwise 태그 사용
+
+*파싱
+-주어진 데이터를 분석하여 원하는 데이터를 특정 패턴이나 순서로
+추출해 가공하는 것을 말함
+
+확장이 가능한 마크업언어
+개발자가 직접 태그를 정의할수있고 데이터를 기술할 수 있는 언어
+데이터를 저장하고 전달할 목적으로 만들어짐
+웹애플리케이션 사이에서 데이터를 전달하는게 목적

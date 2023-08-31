@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <style>
+        body{height:2000px;}
+        div{width:200px; height:200px;}
+        #box1{background: red;}
+        #box2{background: beige;}
+        p{position:fixed; top:0; left:0;}
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#box1").on("mouseenter", function(){
+                $(this).height(300);
+                $("p").html("<span>마우스를 올렸습니다.</span>");
+            });
+            $("#box1").on("mouseleave", function(){
+                $(this).height(200);
+                $("p").html("<span>마우스를 내렸습니다.</span>");
+            });
+            $("#box2").on("mousemove", function(e){
+                let x = e.pageX;
+                let y = e.pageY;
+                $("p").html(`<span>마우스를 움직였습니다. x좌표 : ${x} y좌표 : ${y}</span>`);
+            });
+            $(window).on("resize", function(){
+                let wid = $(this).width();
+                $("p").html("width 값은 " + wid + "이다.");
+            });
+            $(window).on("scroll", function(){
+                let sct = $(this).scrollTop();
+                $("p").html(`화면을 스크롤 했습니다. 스크롤 값은 : ${sct}`);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <p></p>
+</body>
+</html>

@@ -1,0 +1,42 @@
+Controller의 리턴 타입
+1.void
+호출한 url과 동일한 이름의 jsp를 의미함
+/basic 요청 ---> basic.jsp
+
+ex)
+	@RequestMapping("/basic") <<요청한 url이 /basic
+	public void basicbasic() {
+		log.info("basicbasic");
+	}
+결과-> basic.jsp가 요청됨
+
+2.String
+jsp파일의 경로와 파일이름을 나타냄
+/ex01 요청  ---> 리턴해주는문자.jsp
+
+ex)
+	@RequestMapping("/ex01")
+	public String ex01(SampleDTO dto) {
+		log.info(""+dto);
+		return "ex01";  <<String 리턴 타입이고 'ex01'을 리턴해주고있음.
+	}
+
+결과 -> ex01.jsp가 요청됨
+
+2-1. String 타입에는 특별한 키워드를 사용 할 수 있음
+redirect : 리다이렉트 방식으로 처리하는 경우
+response.sendRedirect("") 랑 같음.
+
+ex)
+	@GetMapping("/re1")
+	public String re1() {
+		log.info("re1호출");
+		return "redirect:/sample/re2";
+	}
+	@GetMapping("/re2")
+	public String re2() {
+		log.info("re2호출");
+		return "re2";
+	}
+
+결과 -> re1 요청하면 re2가 실행

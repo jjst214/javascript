@@ -1,0 +1,5 @@
+SMTP(Simple Mail Transfer Protocol)를 활용한 이메일 전송하기
+
+이메일 전송에 필요한 라이브러리
+javamail (https://mvnrepository.com/artifact/javax.mail/mail/1.4.7)
+javabeans activation framework (https://mvnrepository.com/artifact/javax.activation/activation/1.1.1)

@@ -1,0 +1,20 @@
+Rest
+네트워크 상에서 Client와 Server사이의 통신 방식 중 하나
+HTTP URI를 통해서 자원을 명시하고 HTTP Method(post, get, put, delete)를 통해
+해당 자원에 대한 CRUD Operation을 적용하는 것을 의미
+
+특징
+- 서버(자원이 있는 쪽) - 클라이언트(자원을 요청하는 쪽) 구조
+REST Server : API를 제공하고 비즈니스 로직 처리 및 저장을 책임
+Client : 사용자 인증이나 context(세션, 로그인 정보)등을 직접 관리하고 책임
+- 서로 간 의존성이 줄어든다.
+- 서버와 클라이언트는 단순한 요청만을 처리하여 서비스의 자유도가 높음
+
+RESTful
+REST라는 아키텍처를 구현하는 웹 서비스를 나타내는 용어
+REST API를 제공하는 웹서비스를 RESTful하다고 할 수 있음
+즉 REST원리를 따르는 시스템은 RESTful이란 용어로 지칭된다.
+
+RESTful의 목적
+이해하기 쉽고 사용하기 쉬운 REST API를 만드는 것
+일반적인 컨벤션을 통한 API의 이해도

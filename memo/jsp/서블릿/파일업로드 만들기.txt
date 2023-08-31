@@ -1,0 +1,52 @@
+파일업로드
+1.cos 라이브러리 다운받기
+http://servlets.com/cos/
+lib안의 jar파일 이클립스 lib안에 붙여넣기
+
+2.화면 폼 작성
+enctype속성 : 폼값을 서버로 전송할때 인코딩 방식을 지정
+application/x-www-form-urlencoded
+모든 문자를 서버로 전송하기 전에 인코딩(기본값)
+multipart/form-data 모든 문자를 인코딩 하지않음
+파일을 서버로 전송할때 사용하는 속성값
+text/plain 공백문자만 +기호로 변환하고 나머지 문자는 인코딩 하지않음
+<form method="post" enctype="multipart/form-data">
+</form>
+
+<input type="file" name="photo"/>
+
+fileUpload.jsp 파일 생성
+
+데이터베이스 테이블 작성
+create table myfile(
+    idx number primary key,
+    name varchar2(50) not null,
+    title varchar2(200) not null,
+    cate varchar2(30),
+    ofile varchar2(100) not null,
+    sfile varchar2(50) not null,
+    postdate date default sysdate not null
+);
+create sequence seq_myfile_num
+increment by 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache;
+
+DTO, DAO 작성
+
+연동해서 파일 업로드
+1)webapp안에 uploads 폴더 생성
+2)MultipartRequest 객체 생성(위에 다운받은 cos.jar에 클래스가 생성되있음)
+public MultipartRequest(HttpServletRequest request,  //request 내장객체
+String saveDirectory,  //파일이 저장될 디렉토리의 경로
+int maxPostSize,  //업로드할 파일의 최대용량
+String encoding)  //인코딩 방식
+3)새로운 파일명 생성("업로드일시.확장자")
+4)파일명 변겅
+5)다른 폼 값 처리
+6)DTO객체 생성
+7)DAO를 통해 데이터베이스에 반영
+8)파일목록 jsp로 리다이렉션

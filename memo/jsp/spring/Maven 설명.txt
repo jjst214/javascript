@@ -1,0 +1,45 @@
+Maven 자바용 프로젝트 관리도구
+프로젝트의 전체적인 라이프사이클을 관리하는 도구
+필요한 라이브러리를 특정문서(pom.xml)에 정의해두면
+내가 사용할 라이브러리 뿐만 아니라 해당 라이브러리가 작동하는데
+필요한 다른 라이브러리들까지 관리하여 네트워크를 통해서 자동으로
+다운로드 해줌
+
+POM(프로젝트 객체모델(Project Object Model))
+-pom.xml파일을 뜻하며 메이븐을 이용하는 프로젝트의 root에 존재하는 xml파일
+-maven의 기능을 이용하기 위해서 pom이 사용됨
+-프로젝트마다 1개있으며 pom.xml만 보면 프로젝트의 설정, 의존성 등을 알 수 있다.
+
+<dependencies> 프로젝트와 의존관계에 있는 라이브러리 관리
+<properties> 버전관리시 용이
+<parent> 프로젝트 계층정보
+<groupId> 프로젝트를 생성하는 조직의 고유 아이디를 결정(보통 도메인 이름을 거꾸로 적음)
+<artifactId> 프로젝트 빌드시 파일 대표이름
+<packagin> 패키징 유형
+<name> 프로젝트 이름
+
+Junit 유효성 테스트
+src/test/java 폴더
+org.zerock.sample 패키지 생성
+SampleTests 클래스 생성
+
+@Autowired 해당 인스턴스 변수가
+스프링으로부터 자동으로 주입해 달라는 표시이고 스프링이
+정상적으로 주입이 가능하다면 obj변수에 객체를 주입하게됨
+@RunWith() 현재 테스트 코드가 스프링을 실행하는 역할을 할것이라는 것을 표시
+@Log4j 롬복을 이용해서 로그를 기록하는 Logger 변수를 생성해줌
+
+
+
+
+
+dto.setmID(rs.getString("mID"));
+					dto.setmPW(rs.getString("mPW"));
+					dto.setmNAME(rs.getString("mNAME"));
+					dto.setmADDRESS(rs.getString("mADDRESS"));
+					dto.setmPOST(rs.getString("mPOST"));
+					dto.setmRDATE(rs.getString("mRDATE"));
+					dto.setmBIRTH(rs.getString("mBIRTH"));
+					dto.setmBUY(rs.getString("mBUY"));
+					dto.setmDROP(rs.getString("mDROP"));
+					dto.setmGRADE(rs.getString("mGRADE"));

@@ -1,0 +1,15 @@
+1.Producer 프로미스 생성
+const promise = new Promise((resole, reject)=>{
+	resolve("여러분");
+});
+
+2.소비자 프로미스 사용
+resolve함수 호출시 then실행
+reject함수 호출시 catch실행
+promise
+.then(value=>{
+	console.log(value);
+});
+.catch(e=>{
+	console.log(e);
+});

@@ -1,0 +1,16 @@
+request 기본객체
+웹 브라우저의 요청을 담당
+- 서버와 관련된 정보읽기
+- 클라이언트가 전송한 요청데이터 읽기
+- 클라이언트 관련된 정보 읽기
+- 속성 처리기능
+
+클라이언트 및 서버 정보 관련 메소드
+getRemoteAdd() String 웹 서버에 연결한 클라이언트 ip 주소를 반환
+getContentLength() long 클라이언트가 전송한 요청 정보의 길이를 구함
+getCharacterEncoding() String 클라이언트가 요청 정보를 전송할때 사용한 캐릭터의 인코딩을 리턴
+getContentType() String 클라이언트가 요청 정보를 전송할때 사용한 컨텐츠의 타입을 리턴
+getMethod() String 정보를 전송할때 사용한 방식(post,get)을 리턴
+
+post방식으로 보냈을때 한글깨짐
+request.setCharacterEncoding("UTF-8"); 추가

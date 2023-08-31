@@ -1,0 +1,6 @@
+DTO클래스 / DAO클래스
+DTO(Data Transfer Object) : 데이터를 교환하기 위해 getter/setter로 이루어진 객체
+
+DAO(Data Access Object) : 데이터베이스의 데이터에 접근하기 위한 객체
+보통 jdbc를 통해 구현하며, 하나의 테이블에서 수행 할 수 있는 CRUD를 전담함.
+

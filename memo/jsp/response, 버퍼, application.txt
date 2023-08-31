@@ -1,0 +1,32 @@
+response 객체
+응답에 관련된 정보를 관리하는 객체
+-헤더정보 입력
+-리다이렉트 하기
+
+response.sendRedirect("이동할 페이지");
+
+
+버퍼buffer
+jsp페이지는 응답 결과를 바로 웹 브라우저에게 전송하지 않고 대신 출력 버퍼라는 곳에
+임시로 응답 결과를 저장했다가 한번에 전송함.
+
+page 디렉티브 버퍼 설정하기
+buffer 속성 - kb단위로 버퍼의 크기를 지정(디폴트 8kb)
+<%@ page buffer="4kb"%>
+
+autoFlush 속성 - 버퍼가 다 찼을때 쌓인 데이터를 실제로 전송되어야 할 곳으로 전송하고 버퍼를 자동으로 비워줌
+true : 버퍼가 다 차면 버퍼를 플러쉬하고 계속 해서 작업을 진행함.
+false : 버퍼가 다 차면 exception을 발생시키고 작업을 '중지'함
+
+
+application 기본객체
+*서버 정보관련 메소드
+getServerInfo() : 서버 정보를 구한다.
+getMajorVersion : 서블릿 규약 메이저 버전을 구함
+getMinorVersion : 서블릿 규약 마이너 버전을 구함
+
+* 웹 어플리케이션의 자원 구하기
+getResource(파일경로) : 폴더에 위치한 파일을 사용하기
+getRealPath(path) : 지정한 경로에 해당하는 자원의 시스템상에서의 경로를 리턴
+getResourcesAsStream(path) : 웹어플리케이션 내에서 지정한 경로에 해당하는 자원으로부터
+데이터를 읽어 올 수 있는 InputStream을 리턴함

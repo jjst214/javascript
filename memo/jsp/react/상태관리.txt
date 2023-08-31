@@ -1,0 +1,13 @@
+상태관리
+1) useState()
+useState(상태의 초기값) ----> 배열 리턴 [state, setState]
+ex> const [number, setNumber] = useState(0)
+number = 0
+setNumber(1) ---> 상태를 업데이트 해주는 함수
+
+2)useReducer()
+useReducer(reducer함수, 상태초기값) ---> 배열 리턴 [state, dispatch]
+
+reducer함수 ? 액션 객체를 전달받아 상태를 업데이트
+reducer호출 ? dispatch({액션객체})
+reducer() ---> X

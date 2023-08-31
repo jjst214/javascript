@@ -1,0 +1,15 @@
+시큐리티 적용하기
+spring-boot-starter-security
+spring-security-test
+
+회원정보 테이블 이름 "`user`"
+User 클래스 생성
+id, username, password, role
+
+빌더(Builder)패턴
+별도의 Builder클래스를 만들어서 메소드를 통해
+스텝바이스텝으로 값을 입력받은 후
+최종적으로 build()메소드로 하나의 인스턴스를 생성하여
+리턴하는 패턴이다.
+빌더 패턴을 사용하면 데이터의 순서에 상관없이
+객체를 만들어낼 수 있다.

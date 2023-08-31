@@ -1,0 +1,95 @@
+Router
+라우팅 : 사용자가 요청한 URL에 따라 알맞는 페이지를 보여주는 것을 의미
+글쓰기 페이지
+목록 페이지
+글 읽기 페이지
+
+라우팅 시스템
+페이지별로 컴포넌트를 분리해가며 프로젝트를 관리하는 시스템
+
+1.리액트 라우터 : 라우팅 라이브러리
+2.Next.js : 리액트 프로젝트의 프레임워크
+
+1)프로젝트 생성 라우터 설치
+npx create-react-app router-tutorial
+npm install react-router-dom
+
+2)라우터 사용하기
+1.상위 컴포넌트에서 라우터 적용
+<BrowserRouter> 컴포넌트 사용(react-router-dom)
+ex>
+<BrowserRouter>
+<App></App
+</BrowserRouter>
+index.js
+2.페이지 컴포넌트 3개 생성
+Home.js, Product.js, View.js
+3.Routes, Route 컴포넌트로 특정 경로에 원하는 component를 설정
+Routes 컴포넌트는 여러 Route를 감싸서 그중 url이 일치하는 라우트 하나를 렌더링 시켜줌
+<Routes>
+	<Route path="경로" element={<component/>}/>
+</Routes>
+4.Link컴포넌트를 사용하여 다른 페이지로 이동하는 링크 설정(html의 a태그같은)
+a태그를 클릭하여 페이지를 이동하면 브라우저에서 페이지를 새로불러옴
+Link컴포넌트 역시 a태그를 사용하긴 하지만 페이지를 새로 불러오는 것을 막고
+History API를 통해 브라우저 주소의 경로만 바꾸는 기능이 내장되어 있음
+ex><Link to="경로">링크이름</Link>
+
+5.url파라미터와 쿼리스트링
+페이지 주소에 값을 전달할때 사용
+1)쿼리스트링 : /view?username=green&keyword=ddd
+?문자열 이후에 key=value형태로 값을 정의하고 & 로 구분하여 여러개 작성가능
+<Link> 컴포넌트 to 속성에서 ?를 사용해서 전달할 데이터를 name=value 형태로 작성
+ex> <Link to="view?name=green&color=white">상세페이지</Link>
+
+전달받은 값을 사용
+useLocation() ---> location객체 리턴
+- hash
+- pathname : 현재주소경로
+- search : ?포함한 쿼리 스트링
+- key : location객체의 고유 값, 초기값은 default, 페이지가
+변경될 때 마다 고유의 값이 생성됨
+useSearchParams() ------> 배열리턴[]
+0번째에는 쿼리파라미터를 조회하거나 수정할 수 있는 메소드들이 담긴
+객체를 반환
+1번째에는 쿼리파라미터를 객체형태로 업데이트 할 수 있는 함수를 반환
+
+2)URL파라미터 : view/item1
+주소의 경로에 유동적인 값을 넣는 형태
+사용법
+-Route 컴포넌트 path속성에서 params 객체의 키(key이름)를 지정
+<Route path="/view/:productname" element={<Component/>} />
+
+-Link 컴포넌트의 to속성에서 값을 넘겨줌
+<Link to="view/book"></Link>
+
+useParams() ---> 객체 {productname: "book"} 이 리턴됨
+
+6.중첩된 라우터 사용하기
+페이지에 서브페이지 사용하기
+* 중첩 라우터
+1) <Route> 컴포넌트안에 <Route> 컴포넌트를 넣음
+<Route path="">
+	<Route path=""/>
+</Route>
+
+2) <Outlet> 컴포넌트
+<Route> 컴포넌트의 children으로 들어가는 컴포넌트를 보여주는 역할을 함
+중첩라우트 컴포넌트가 나타나야할 부분에 <Outlet>컴포넌트를 작성
+Subpages
+Subpage
+
+7.useNavigate()
+Link컴포넌트를 사용하지 않고 다른 페이지로 이동을 해야할 때 사용
+useNavigate() ---> 페이지를 이동할 수 있는 함수를 리턴
+ex> const navigate = useNavigate();
+navigate(-1) 이전 페이지로 이동
+navigate(-2) 이전 이전 페이지로 이동
+navigate(1) 다음 페이지로 이동
+navigate("경로") 원하는 경로로 이동
+
+8.NavLink 컴포넌트
+링크에서 사용하는 경로가 현재 라우트의 경로와 일치하는 경우
+특정 스타일 또는 css클래스 적용하는 컴포넌트
+NavLink 컴포넌트 사용시 style 또는 className을 설정할때
+{ isActive: boolean }을 파라미터로 전달받음

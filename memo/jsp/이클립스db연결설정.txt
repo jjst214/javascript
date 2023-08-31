@@ -1,0 +1,84 @@
+오라클 연동하기
+1. JDBC드라이버 설정
+톰캣폴더 안에 있는 jdbc6.jar 파일을 복사해서 이클립스 프로젝트 webapp/WEB-INF/lib 폴더 안에 붙여넣기
+
+2. 연결관리 클래스 생성
+JDBCConnect클래스 생성
+클래스 멤버(변수) 선언
+연결담당 : Connection
+DriverManager.getConnection(오라클 경로, db아이디, 비밀번호)
+정적쿼리문 실행 때 사용객체 : Statement, con.createStatement()
+동적쿼리문 실행 때 사용객체 : PreparedStatement, con.prepareStatement
+select쿼리문 결과를 저장할때 사용하는 객체 : ResultSet
+
+public class JDBCConnect{
+	public Connection con;
+	public Statement stmt;
+	public PreparedStatement psmt;
+	public ResultSet rs;
+
+	public JDBCConnect(){
+		try{
+			Class.forName("oracle.jdbc.OracleDriver");
+			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String id = "green";
+			String pw = "1234";
+			con = Driver.Manager.getConnection(url, id, pw);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void close(){
+		try{
+			if(rs != null) rs.close();
+			if(stmt != null) stmt.close();
+			if(psmt != null) psmt.close();
+			if(con != null) con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+}
+
+
+test.jsp
+<%
+	JDBCConnnect jdbc = new JDBCConnect();
+	쿼리작성
+	jdbc.close();
+%>
+
+
+3.쿼리작성
+1)동적쿼리 작성
+<%
+	JDBCConnnect jdbc = new JDBCConnect();
+	String sql = "insert into member values(?, ?, ?, sysdate)";
+	PreparedStatement psmt = jdbc.con.preparedStatement(sql);
+	//setInt(int index, int value) : 해당 인파라미터(?값)에 정수값 대입
+	//setString(int index, String value) : 해당 인파라미터에 문자형값 대입
+	//setDate(int index, Date value) : 해당 인파라미터에 date값 대입
+	
+	psmt.setString(1, "test1");
+	psmt.setString(2, "11123");
+	psmt.setString(3, "테스트");
+	int inResult = psmt.executeUpdate();
+	jdbc.close();
+%>
+쿼리실행
+executeUpdate()  ---> insert, update, delete --> 변경된 레코드의 수(int) 리턴
+executeQuery() ---> select  ---> 조회결과 리턴(ResultSet)
+
+2)정적쿼리 작성
+String sql = "select id, pass, name from member";
+Statement stmt = jdbc.con.createStatement();
+쿼리수행
+ResultSet rs = stmt.executeQuery(sql);
+rs.next()
+
+next()메소드를 호출하면 다음 행으로 이동시킴
+다음행이 있으면 true, 없으면 false리턴
+get메소드들은 커서가 현재 가리키는 행의 컬럼을 읽어옴
+getInt(int 컬럼인덱스) or getInt("컬럼이름") 두가지방법으로 가져올수있음
+getString(index), getString("컬럼이름")
+getDate(index), getDate("컬럼이름")
