@@ -13,3 +13,14 @@ promise
 .catch(e=>{
 	console.log(e);
 });
+
+async, await ±¸¹®
+async function myfun(){
+	try{
+		const response = await fetch("");
+		const json = await response.json();
+	}
+	catch(e){
+		
+	}
+}

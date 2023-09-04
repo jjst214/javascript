@@ -1,0 +1,20 @@
+클라이언트 요청 메서드
+get	조회		read
+post	저장(insert)	create
+delete	삭제		delete
+put	수정		update
+
+
+fetch API 요청
+get요청(fetch할때 url만 작성시)
+fetch("http://localhost:8010/api/cars");
+get이외 요청이 필요할 때
+fetch("http://localhost:8010/api/cars", {
+	method: "POST",
+	headers: {
+		"Content-Type": "application/json"
+	},
+	body: JSON.stringify(obj)
+});
+
+서버 restFul API 제공

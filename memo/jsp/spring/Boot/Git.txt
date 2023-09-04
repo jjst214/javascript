@@ -1,0 +1,35 @@
+*React 프로젝트는 git clone 후 npm install 해줘야함
+
+1.git 설정확인
+git config --list
+
+2.사용자등록
+로컬에서 기본값으로 
+git config --global user.name "김그린"
+git config --global user.email "이메일@naver.com"
+- 사용자 삭제
+git config --global --unset user.name
+git config --global --unset user.email
+
+3.기본브랜치 이름을 main으로 변경
+git config --global init.defaultBranch main
+
+github ---> 원격저장소
+git을 웹에서 보다 편하게 사용 할 수 있도록 만든 도구입니다.
+git을 활용해서 짠 코드를 공유 할 수 있는 공간입니다.
+
+4.로컬저장소에 git관리 파일 생성
+git init
+
+5.git에 파일추가
+git add .
+
+6.커밋
+git commit -m "message"
+
+7.원격저장소 연결
+git remote add origin 리포지토리주소
+* 원격 저장소 삭제
+git remote rm origin
+8.현재 폴더에 복사하기
+git clone 리포지토리주소

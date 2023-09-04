@@ -1,0 +1,31 @@
+1.»ý¼ºÀÚ ÇÔ¼ö ¹æ½Ä
+const regexp = new RegExp("abc");
+
+2.¸®ÅÍ·² ¹æ½Ä
+const regexp = /abc/;
+
+¸Þ¼Òµå
+Á¤±Ô½Ä.test(¹®ÀÚ¿­) ÆÐÅÏ¿¡ ÇØ´çµÇ´Â ¹®ÀÚ¿­ÀÌ ÀÖÀ¸¸é true ¾øÀ¸¸é false
+
+let pattern = /a/;
+pattern.test("abcabc")	true
+
+¹®ÀÚ¿­.search(/Á¤±Ô½Ä/g)  °á°ú°ªÀ¸·Î Á¤±Ô½ÄÀÇ °ªÀÇ ÀÎµ¦½º ¼ýÀÚ¸¦ ¸®ÅÏÇÏ°í ¾øÀ¸¸é -1¸®ÅÏ
+
+let set = "hey JudE";
+let re = /A-Z/g;	//´ë¹®ÀÚ A-Z
+let re2 = /[.]/g;
+set.search(re)	--->       	4¸®ÅÏ
+set.search(re2)	--->	-1
+
+¼ýÀÚ¸¸ °¡´É
+/^[0-9]+$/
+
+ÇÑ±Û¸¸ °¡´É  ¤¡¤¤¤§ ÀÔ·ÂºÒ°¡
+/^[°¡-ÆR]+$/
+
+¿µ¹®¸¸ °¡´É
+/^[a-zA-Z]+$/
+
+ÀüÈ­¹øÈ£ ÇüÅÂ
+/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/
